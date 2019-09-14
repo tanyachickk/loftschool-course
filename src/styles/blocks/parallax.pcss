@@ -1,0 +1,60 @@
+.parallax {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1779px;
+  &__layer {
+    position: absolute;
+    &_background {
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 938px;
+    }
+    &_title {
+      top: 490px;
+      left: 50%;
+      margin-left: -215px;
+    }
+    &_subtitle {
+      top: 492px;
+      right: 50%;
+      margin-right: 275px;
+    }
+    &_train {
+      left: 0;
+      right: 0;
+      top: 522px;
+    }
+    &_ground {
+      position: relative;
+      top: 955px;
+      left: 0;
+      right: 0;
+      &::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 670px;
+        background-image: linear-gradient(to top, #1b1f22 0%, rgba(27, 31, 34, 0) 100%);
+      }
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 754px;
+        background-image: linear-gradient(to top, #1b1f22 0%, rgba(27, 31, 34, 0) 100%);
+      }
+    }
+  }
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}

@@ -1,0 +1,28 @@
+.socials {
+  display: flex;
+  align-items: center;
+  &__item {
+    &:not(:last-child) {
+      margin-right: 40px;
+    }
+  }
+  &__link {
+    opacity: 0.3;
+    transition: opacity 0.2s ease;
+    &:hover {
+      opacity: 1;
+    }
+  }
+  &__icon {
+    fill: white;
+    &_insta {
+      width: 26px;
+    }
+    &_vk {
+      width: 32px;
+    }
+    &_github {
+      width: 28px;
+    }
+  }
+}

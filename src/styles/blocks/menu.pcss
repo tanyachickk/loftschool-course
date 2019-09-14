@@ -1,0 +1,21 @@
+.menu {
+  &__list {
+    display: flex;
+    align-items: center;
+  }
+  &__item {
+    &:not(:last-child) {
+      margin-right: 60px;
+    }
+  }
+  &__link {
+    color: white;
+    font-size: 16px;
+    text-decoration: none;
+    opacity: 0.3;
+    transition: opacity 0.2s ease;
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
