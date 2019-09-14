@@ -1,4 +1,66 @@
 .footer {
-  height: 371px;
+  display: flex;
+  justify-content: center;
+  padding: 81px 0 83px;
   background-color: #1b1f22;
+  &__grid {
+    display: grid;
+    grid-template-columns: 170px 220px 460px 470px;
+    grid-template-rows: auto auto auto;
+    grid-template-areas: 'year author menu menu' '. site site-info quote' '. . socials quote';
+    grid-column-gap: 60px;
+    grid-row-gap: 27px;
+  }
+  &__year {
+    grid-area: year;
+    color: white;
+    font-size: 48px;
+    font-weight: 600;
+    line-height: 1;
+    opacity: 0.1;
+  }
+  &__author {
+    grid-area: author;
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 30px;
+    text-transform: uppercase;
+  }
+  &__menu {
+    grid-area: menu;
+  }
+  &__site {
+    grid-area: site;
+    opacity: 0.15;
+    color: white;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 30px;
+  }
+  &__site-info {
+    grid-area: site-info;
+  }
+  &__quote {
+    grid-area: quote;
+  }
+  &__quote-text {
+    margin-bottom: 35px;
+  }
+  &__quote-author {
+    color: white;
+    font-size: 16px;
+    font-style: italic;
+    line-height: 30px;
+  }
+  &__socials {
+    grid-area: socials;
+  }
+  .footer-text {
+    opacity: 0.3;
+    color: white;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 30px;
+  }
 }
