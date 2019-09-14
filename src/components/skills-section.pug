@@ -1,1 +1,11 @@
+include widgets-list
+
 section#skills.skills-section
+  .skills-section__title Чем я могу быть полезна вам
+  .skills-section__description Этот сайт я сделала в рамках обучения в Школе онлайн образования LoftSchool. Чуть позже я освежу в нём свой контент. А пока посмотрите, как тут всё классно и красиво!
+  .skills-section__widgets
+    +widgets-list('Front-end', [{ title: 'HTML5', value: 40 }, { title: 'CSS3', value: 40 }, { title: 'Javascript', value: 40 }, { title: 'Vue.js', value: 40 }])
+  .skills-section__widgets
+    +widgets-list('Workflow', [{ title: 'GIT', value: 40 }, { title: 'Terminal', value: 40 }, { title: 'Gulp', value: 40 }, { title: 'Webpack', value: 40 }])
+  .skills-section__image
+    +image('content/hands.png')
