@@ -1,5 +1,21 @@
 .about-section {
+  position: relative;
   height: 824px;
   width: 100%;
-  background-image: url('~images/content/black-background.png');
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &__grid {
+    display: grid;
+    grid-template-rows: 200px 100px;
+    grid-template-columns: 300px 540px;
+    grid-column-gap: 158px;
+    grid-row-gap: 79px;
+  }
+  &__avatar {
+    justify-self: end;
+  }
+  &__profile {
+    justify-self: end;
+  }
 }
