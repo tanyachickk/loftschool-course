@@ -1,11 +1,25 @@
 .main-section {
   position: relative;
   height: 100vh;
+  z-index: 1;
 
   &__scroll {
+    display: flex;
+    align-items: center;
     position: absolute;
     left: 50%;
     bottom: 5vh;
     transform: translate(-50%, -50%);
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 30px;
+    text-decoration: none;
+  }
+  &__scroll-icon {
+    fill: white;
+    width: 20px;
+    height: 30px;
+    margin-left: 20px;
   }
 }
