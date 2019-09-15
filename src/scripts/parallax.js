@@ -9,7 +9,7 @@ function moveLayersDependsOnScroll(wScroll) {
   });
 }
 
-window.addEventListener('scroll', (event) => {
+window.addEventListener('scroll', () => {
   const wScroll = window.pageYOffset;
   moveLayersDependsOnScroll(wScroll);
 });

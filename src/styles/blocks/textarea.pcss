@@ -1,0 +1,49 @@
+.textarea {
+  position: relative;
+  width: 100%;
+  &__control {
+    padding-left: 45px;
+    width: 100%;
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 36px;
+    height: 56px;
+    background: none;
+    border: none;
+    border-bottom: 1px solid #898989;
+    outline: none;
+    transition: border 0.2s ease;
+    &:focus {
+      border-bottom-color: #ff9a00;
+    }
+  }
+  &__icon {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 30px;
+    height: 30px;
+    fill: rgba(255, 255, 255, 0.3);
+    transform: translateY(-50%);
+  }
+  &__control:focus ~ &__icon {
+    fill: #ff9a00;
+  }
+  &__label {
+    position: absolute;
+    top: 50%;
+    left: 45px;
+    bottom: auto;
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 30px;
+    transform: translateY(-50%);
+    transition: transform 0.2s ease;
+    z-index: -1;
+  }
+  &__control:focus ~ &__label {
+    transform: translateY(-200%);
+  }
+}

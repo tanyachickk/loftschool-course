@@ -1,0 +1,7 @@
+include ../mixins
+
+mixin textarea(label, className, icon)
+  .textarea
+    textarea.textarea__control
+    +icon(icon, 'textarea__icon')
+    .textarea__label #{label}

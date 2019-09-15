@@ -1,0 +1,7 @@
+include ../mixins
+
+mixin input(type, label, className, icon)
+  .input
+    input.input__control(type=type)
+    +icon(icon, 'input__icon')
+    .input__label #{label}

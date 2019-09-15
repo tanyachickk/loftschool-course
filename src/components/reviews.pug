@@ -1,0 +1,9 @@
+include review
+
+#reviews.reviews
+  .reviews__title Что обо мне говорят
+  .reviews__list
+    - var reviews = [{ text: 'Эта девушка проходила обучение веб-разработке не где-то, а в LoftSchool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!', author: 'Дмитрий Ковальчук', position: 'Основатель LoftSchool', avatar: '' }, { text: 'Этот код выдержит любые испытания. Только пожалуйста, не загружайте сайт на слишком старых браузерах', author: 'Владимир Сабанцев', position: 'Преподаватель', avatar: '' }]
+    each review in reviews
+      .reviews__item
+        +review(review)

@@ -1,1 +1,8 @@
 section#feedback.feedback-section
+  each index in [1, 2, 3, 4]
+    +image(`content/leaf${index}.png`, 'feedback-section__leaf')
+  .feedback-section__content
+    .feedback-section__reviews
+      include reviews
+    .feedback-section__form
+      include feedback-form
