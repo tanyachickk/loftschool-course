@@ -1,8 +1,29 @@
 .reviews {
+  &__header {
+    display: flex;
+    align-items: center;
+  }
   &__title {
+    margin-right: 97px;
     color: white;
     font-size: 36px;
     font-weight: 700;
     line-height: 48px;
+  }
+  &__controls {
+    display: flex;
+    align-items: center;
+  }
+  &__prev-button {
+    margin-right: 30px;
+  }
+  &__list {
+    display: flex;
+    margin-top: 97px;
+  }
+  &__item {
+    &:first-child {
+      margin-right: 50px;
+    }
   }
 }

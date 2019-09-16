@@ -11,11 +11,11 @@
     height: 56px;
     background: none;
     border: none;
-    border-bottom: 1px solid #898989;
+    border-bottom: 1px solid $light-gray;
     outline: none;
     transition: border 0.2s ease;
     &:focus {
-      border-bottom-color: #ff9a00;
+      border-bottom-color: $accent-color;
     }
   }
   &__icon {
@@ -26,9 +26,10 @@
     height: 30px;
     fill: rgba(255, 255, 255, 0.3);
     transform: translateY(-50%);
+    z-index: -1;
   }
   &__control:focus ~ &__icon {
-    fill: #ff9a00;
+    fill: $accent-color;
   }
   &__label {
     position: absolute;

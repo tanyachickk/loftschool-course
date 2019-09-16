@@ -1,5 +1,10 @@
+include review-author
+
 mixin review(value)
   .review
-    .review.text #{value.text}
-    .review.author #{value.author}
-    .review.position #{value.position}
+    .review__quote
+      +icon('quote', 'review__quote-icon')
+    .review__content
+      .review__text #{value.text}
+      .review__author
+        +review-author(value.avatar, value.author, value.position)
