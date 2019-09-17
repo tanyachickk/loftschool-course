@@ -1,8 +1,0 @@
-include widget
-
-mixin widgets-list(title, widgets)
-  .widgets-list__title #{title}
-  .widgets-list__content
-    each widget in widgets
-      .widgets-list__item
-        +widget(widget.title, widget.value)
