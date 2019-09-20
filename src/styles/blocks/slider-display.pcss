@@ -1,11 +1,15 @@
-.works-preview {
+.slider-display {
   position: relative;
-  width: 100%;
+  width: 1135px;
   height: 550px;
-  &__current {
+  &__current-slide {
     width: 975px;
     height: 100%;
-    background-color: lightgray;
+  }
+  &__current-image {
+    width: 100%;
+    object-fit: cover;
+    object-position: top center;
   }
   &__number {
     position: absolute;
@@ -17,15 +21,14 @@
     line-height: 0.78;
     z-index: -1;
   }
-  &__list {
+  &__thumbs {
     position: absolute;
     right: 160px;
     bottom: 60px;
     width: 710px;
     height: 100px;
-    background: black;
   }
-  &__controls {
+  &__buttons {
     position: absolute;
     left: 975px;
     bottom: 60px;
