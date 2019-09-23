@@ -1,15 +1,17 @@
 include ../mixins
 
 .parallax
-  .parallax__layer.parallax__layer_background(data-speed="30")
-    +image('content/main-background.png', 'parallax__image')
-  .parallax__layer.parallax__layer_title(data-speed="14")
+  .parallax__layer.parallax__layer_sky(data-speed="15")
+    +image('content/sky.webp', 'parallax__image')
+  .parallax__layer.parallax__layer_mountains(data-speed="12")
+    +image('content/mountains.webp', 'parallax__image')
+  .parallax__layer.parallax__layer_title(data-speed="9")
     include main-title
-  .parallax__layer.parallax__layer_subtitle(data-speed="14")
+  .parallax__layer.parallax__layer_subtitle(data-speed="9")
     include main-subtitle
-  .parallax__layer.parallax__layer_train(data-speed="8")
-    +image('content/train.png', 'parallax__image')
-  .parallax__layer.parallax__layer_ground(data-speed="4")
-    +image('content/ground.png', 'parallax__image')
-  .parallax__layer.parallax__layer_first-gradient(data-speed="4")
-  .parallax__layer.parallax__layer_second-gradient(data-speed="4")
+  .parallax__layer.parallax__layer_train(data-speed="6")
+    +image('content/train.webp', 'parallax__image')
+  .parallax__layer.parallax__layer_ground(data-speed="3")
+    +image('content/grass.webp', 'parallax__image')
+  .parallax__layer.parallax__layer_first-gradient(data-speed="3")
+  .parallax__layer.parallax__layer_second-gradient(data-speed="3")

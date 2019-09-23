@@ -1,6 +1,6 @@
 include ../../components/arrow-button
 
-script(type="x-template")#reviews
+script(type="text/x-template")#reviews
   .reviews
     .reviews__header
       .reviews__title Что обо мне говорят
@@ -18,7 +18,7 @@ script(type="x-template")#reviews
         )
           review(v-bind="review")
 
-script(type="x-template")#review
+script(type="text/x-template")#review
   .review
     .review__quote
       +icon('quote', 'review__quote-icon')

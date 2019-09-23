@@ -6,11 +6,16 @@
   &__item {
     &:not(:last-child) {
       margin-right: 60px;
+
+      @include desktop {
+        margin-right: 5vw;
+      }
     }
   }
   &__link {
     color: white;
     font-size: 16px;
+    white-space: nowrap;
     text-decoration: none;
     opacity: 0.7;
     transition: opacity 0.2s ease, color 0.2s ease;

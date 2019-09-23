@@ -3,9 +3,22 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 64px 161px;
+  padding: 65px 160px;
+  @include desktopHd {
+    padding: 65px 5vw;
+  }
 
-  @include desktop {
-    padding: 64px 60px;
+  &__menu {
+    @include tablets {
+      display: none;
+    }
+  }
+
+  &__socials {
+    @include tablets {
+      position: absolute;
+      top: 65p;
+      right: 160px;
+    }
   }
 }
