@@ -76,11 +76,13 @@
       margin-top: 30px;
       margin-bottom: 20px;
     }
+    @include tablets {
+      font-size: 14px;
+      line-height: 24px;
+    }
     @include phones {
       margin-top: 10px;
       margin-bottom: 40px;
-      font-size: 14px;
-      line-height: 24px;
       p {
         display: inline-block;
         &:first-child {
@@ -114,6 +116,10 @@
     font-size: 16px;
     font-style: italic;
     line-height: 30px;
+    @include tablets {
+      font-size: 14px;
+      line-height: 24px;
+    }
   }
   &__socials {
     grid-area: socials;
@@ -130,5 +136,9 @@
     font-size: 16px;
     font-weight: 400;
     line-height: 30px;
+    @include tablets {
+      font-size: 14px;
+      line-height: 24px;
+    }
   }
 }
