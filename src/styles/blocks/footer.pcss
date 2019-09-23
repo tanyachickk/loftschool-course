@@ -3,13 +3,39 @@
   justify-content: center;
   padding: 81px 0 83px;
   background-color: $dark-gray;
+  @include desktop {
+    padding: 60px 40px;
+  }
+  @include phones {
+    padding: 65px 32px 60px;
+  }
   &__grid {
     display: grid;
-    grid-template-columns: 170px 220px 460px 470px;
+    grid-template-columns: 12% 23%ss 32% 33%;
     grid-template-rows: auto auto auto;
     grid-template-areas: 'year author menu menu' '. site site-info quote' '. . socials quote';
-    grid-column-gap: 60px;
+    grid-column-gap: 4%;
     grid-row-gap: 27px;
+    max-width: 1430px;
+
+    @include desktopHd {
+      max-width: 1070px;
+      grid-template-columns: 18% 30% 40%;
+      grid-template-areas: 'year menu menu' 'author site-info quote' 'site socials quote';
+    }
+
+    @include desktop {
+      grid-template-columns: 35% 62%;
+      grid-template-rows: auto auto auto;
+      grid-template-areas: 'year menu' 'author .' 'site site-info' '. socials' '. quote';
+      grid-column-gap: 6%;
+      grid-row-gap: 0;
+    }
+    @include phones {
+      grid-template-columns: 100%;
+      grid-template-rows: auto;
+      grid-template-areas: 'year' 'author' 'site' 'menu' 'site-info' 'socials' 'quote';
+    }
   }
   &__year {
     grid-area: year;
@@ -26,6 +52,15 @@
     font-weight: 700;
     line-height: 30px;
     text-transform: uppercase;
+    @include phones {
+      margin-top: 25px;
+      p {
+        display: inline-block;
+        &:first-child {
+          margin-right: 7px;
+        }
+      }
+    }
   }
   &__menu {
     grid-area: menu;
@@ -37,9 +72,31 @@
     font-size: 16px;
     font-weight: 400;
     line-height: 30px;
+    @include desktop {
+      margin-top: 30px;
+      margin-bottom: 20px;
+    }
+    @include phones {
+      margin-top: 10px;
+      margin-bottom: 40px;
+      font-size: 14px;
+      line-height: 24px;
+      p {
+        display: inline-block;
+        &:first-child {
+          margin-right: 7px;
+        }
+      }
+    }
   }
   &__site-info {
     grid-area: site-info;
+    @include desktop {
+      max-width: 400px;
+    }
+    @include phones {
+      margin-top: 40px;
+    }
   }
   &__quote {
     grid-area: quote;
@@ -47,6 +104,10 @@
   &__quote-text {
     margin: 0;
     margin-bottom: 35px;
+    @include desktop {
+      max-width: 450px;
+      margin-bottom: 10px;
+    }
   }
   &__quote-author {
     color: white;
@@ -56,6 +117,12 @@
   }
   &__socials {
     grid-area: socials;
+    @include desktop {
+      margin-bottom: 50px;
+    }
+    @include phones {
+      margin-top: 20px;
+    }
   }
   .footer-text {
     opacity: 0.3;
