@@ -16,6 +16,9 @@
     &:focus {
       border-bottom-color: $accent-color;
     }
+    @include desktop {
+      font-size: 14px;
+    }
   }
   &__icon {
     position: absolute;
@@ -42,6 +45,9 @@
     transform: translateY(-50%);
     transition: transform 0.2s ease;
     z-index: -1;
+    @include desktop {
+      font-size: 14px;
+    }
   }
   &__control:focus ~ &__label {
     transform: translateY(-200%);

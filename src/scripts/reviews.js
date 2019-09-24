@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import reviews from '../data/reviews.json';
+import constants from '../styles/variables.json';
 
 const review = {
   template: '#review',
@@ -27,6 +28,7 @@ new Vue({
   },
   data() {
     return {
+      isMobile: false,
       reviews,
       currentReviewIndex: 0,
     };
@@ -38,6 +40,9 @@ new Vue({
         photo: require(`../images/${item.photo}`),
       }));
     },
+    itemWidth() {
+      return this.isMobile ? 100 : 50;
+    },
   },
   methods: {
     goToPrevReview() {
@@ -46,5 +51,17 @@ new Vue({
     goToNextReview() {
       this.currentReviewIndex = this.currentReviewIndex < this.reviews.length - 2 ? this.currentReviewIndex + 1 : 0;
     },
+    setIsMobile() {
+      this.isMobile = window.innerWidth < parseInt(constants['bp-tablets']);
+    },
+  },
+  mounted() {
+    this.setIsMobile();
+  },
+  created() {
+    window.addEventListener('resize', this.setIsMobile);
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.setIsMobile);
   },
 });

@@ -2,6 +2,9 @@
   &__header {
     display: flex;
     align-items: center;
+    @include phones {
+      flex-direction: column;
+    }
   }
   &__title {
     margin-right: 97px;
@@ -9,10 +12,21 @@
     font-size: 36px;
     font-weight: 700;
     line-height: 48px;
+    @include desktop {
+      font-size: 30px;
+    }
+    @include tablets {
+      margin-right: 5vw;
+    }
   }
   &__controls {
     display: flex;
     align-items: center;
+    @include phones {
+      margin: 26px 0;
+      width: 100%;
+      justify-content: center;
+    }
   }
   &__prev-button {
     margin-right: 30px;
@@ -21,14 +35,24 @@
     margin-top: 97px;
     width: 1000px;
     overflow: hidden;
+    @include desktopHd {
+      width: 932px;
+    }
+    @include desktop {
+      width: 100%;
+    }
+    @include tablets {
+      max-width: 500px;
+    }
+    @include phones {
+      margin-top: 0;
+    }
   }
   &__list {
     display: flex;
     transition: transform 0.3s ease;
   }
   &__item {
-    &:first-child {
-      margin-right: 50px;
-    }
+    padding-right: 20px;
   }
 }

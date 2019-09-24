@@ -4,6 +4,16 @@
   height: 100%;
   &__quote {
     width: 128px;
+    flex-shrink: 0;
+    @include desktopHd {
+      width: 93px;
+    }
+    @include desktop {
+      width: 40px;
+    }
+    @include phones {
+      display: none;
+    }
   }
   &__quote-icon {
     display: block;
@@ -12,12 +22,21 @@
     margin: 0 auto;
     fill: white;
     opacity: 0.05;
+    @include desktopHd {
+      width: 69px;
+      height: 59px;
+    }
+    @include desktop {
+      margin: 0;
+      width: 30px;
+      height: 26px;
+    }
   }
   &__content {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 325px;
+    flex-grow: 1;
   }
   &__text {
     opacity: 0.5;
@@ -25,6 +44,10 @@
     font-size: 16px;
     font-weight: 600;
     line-height: 30px;
+    @include desktop {
+      font-size: 14px;
+      line-height: 24px;
+    }
   }
   &__author {
     margin-top: 32px;

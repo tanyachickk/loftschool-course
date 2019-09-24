@@ -1,25 +1,51 @@
 .feedback-form {
-  width: 863px;
+  width: 100%;
   &__title {
     margin-bottom: 100px;
     color: white;
     font-size: 36px;
     font-weight: 700;
     line-height: 48px;
+    @include desktop {
+      font-size: 30px;
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    @include tablets {
+      text-align: left;
+    }
   }
   &__row {
     display: flex;
     justify-content: space-between;
     margin-bottom: 60px;
+    @include desktop {
+      margin-bottom: 30px;
+    }
+    @include phones {
+      flex-direction: column;
+      margin-bottom: 0;
+    }
   }
   &__name,
   &__mail {
     flex-grow: 1;
+    @include tablets {
+      flex-direction: column;
+      margin-bottom: 40px;
+    }
   }
   &__name {
     margin-right: 50px;
+    @include phones {
+      margin-right: 0;
+    }
   }
   &__button {
+    text-align: center;
     margin-top: 60px;
+    @include desktop {
+      margin-top: 30px;
+    }
   }
 }

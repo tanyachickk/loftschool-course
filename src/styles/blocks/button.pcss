@@ -7,6 +7,11 @@
   line-height: 80px;
   text-transform: uppercase;
   transition: background-image 0.2s ease;
+  cursor: pointer;
+  @include phones {
+    width: 100%;
+    padding: 0;
+  }
   &:hover {
     background-image: linear-gradient(to right, #ff7f00 0%, #ff9d00 100%);
   }

@@ -10,7 +10,7 @@ script(type="text/x-template")#reviews
         .reviews__next-button(@click="goToNextReview")
           +arrow-button('next', 'circle', 'transparent')
     .reviews__body
-      .reviews__list(:style="`width: ${50*reviews.length}%; transform: translateX(-${currentReviewIndex*100/reviews.length}%)`")
+      .reviews__list(:style="`width: ${itemWidth*reviews.length}%; transform: translateX(-${currentReviewIndex*100/reviews.length}%)`")
         .reviews__item(
           v-for="(review, index) in reviewsWithRequiredImages"
           :key="index"
