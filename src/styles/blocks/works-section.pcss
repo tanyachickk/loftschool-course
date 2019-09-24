@@ -2,13 +2,39 @@
   padding: 205px 160px;
   width: 100%;
   background-color: white;
+
+  @include desktopHd {
+    padding: 150px 55px;
+  }
+  @include desktop {
+    padding: 120px 40px;
+  }
+  @include phones {
+    padding: 100px 0;
+  }
   &__title {
     color: $secondary-text-color;
     font-size: 36px;
     font-weight: 700;
     line-height: 48px;
+    @include desktop {
+      font-size: 30px;
+    }
+    @include phones {
+      font-size: 24px;
+      text-align: center;
+    }
   }
   &__body {
     margin-top: 92px;
+    @include desktopHd {
+      margin-top: 60px;
+    }
+    @include desktop {
+      margin-top: 50px;
+    }
+    @include phones {
+      margin-top: 30px;
+    }
   }
 }

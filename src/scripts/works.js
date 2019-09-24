@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import works from '../data/works';
+import constants from '../styles/variables.json';
 
 const sliderThumbs = {
   template: '#slider-thumbs',
@@ -63,9 +64,29 @@ const sliderDisplay = {
       type: Number,
     },
   },
+  data() {
+    return {
+      windowWidth: 0,
+    };
+  },
   computed: {
     thumbs() {
       return this.works.filter((work) => work !== this.currentWork);
+    },
+    maxThumbsCount() {
+      if (this.windowWidth < parseInt(constants['bp-phones'])) {
+        return 0;
+      }
+      if (this.windowWidth < parseInt(constants['bp-desktop'])) {
+        return 2;
+      }
+      if (this.windowWidth < parseInt(constants['bp-desktop-hd'])) {
+        return 3;
+      }
+      return 4;
+    },
+    visibleWorks() {
+      return this.works.slice(0, this.maxThumbsCount);
     },
   },
   methods: {
@@ -82,6 +103,18 @@ const sliderDisplay = {
     goToSlide(index) {
       this.$emit('change-slide', index);
     },
+    setWindowWidth() {
+      this.windowWidth = window.innerWidth;
+    },
+  },
+  mounted() {
+    this.setWindowWidth();
+  },
+  created() {
+    window.addEventListener('resize', this.setWindowWidth);
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.setWindowWidth);
   },
 };
 

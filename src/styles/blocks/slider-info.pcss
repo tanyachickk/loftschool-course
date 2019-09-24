@@ -1,7 +1,15 @@
 .slider-info {
+  width: 100%;
+  @include desktop {
+    padding: 0 30px;
+  }
   &__tags {
     display: flex;
     align-items: center;
+    @include desktop {
+      width: 100%;
+      justify-content: center;
+    }
   }
   &__tag {
     margin-right: 15px;
@@ -12,6 +20,16 @@
     font-size: 30px;
     font-weight: 700;
     line-height: 48px;
+    @include desktop {
+      margin-top: 30px;
+      text-align: center;
+    }
+    @include phones {
+      font-size: 24px;
+      margin-top: 26px;
+      text-align: left;
+      line-height: 30px;
+    }
   }
   &__description {
     margin-top: 44px;
@@ -20,6 +38,16 @@
     font-size: 16px;
     font-weight: 600;
     line-height: 30px;
+    @include desktop {
+      margin-top: 30px;
+      font-size: 14px;
+      text-align: center;
+    }
+    @include phones {
+      margin-top: 20px;
+      text-align: left;
+      line-height: 24px;
+    }
   }
   &__link {
     display: flex;
@@ -29,6 +57,14 @@
     text-decoration: none;
     cursor: pointer;
     transition: opacity 0.2s ease;
+    @include desktop {
+      margin-top: 30px;
+      font-size: 14px;
+      justify-content: center;
+    }
+    @include phones {
+      justify-content: flex-start;
+    }
     &:hover {
       text-decoration: underline;
     }

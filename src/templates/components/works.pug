@@ -13,16 +13,15 @@ script(type="text/x-template")#slider-container
       slider-info(v-bind="currentWork")
 
 script(type="text/x-template")#slider-display
-  .slider-display
+  .slider-display(:data-index="currentIndex + 1")
     .slider-display__current-slide
       img.slider-display__current-image(:src="currentWork.photo")
     .slider-display__thumbs
       slider-thumbs(
-        :works="works"
+        :works="visibleWorks"
         :current-index="currentIndex"
         @change-slide="goToSlide"
       )
-    .slider-display__number {{ currentIndex + 1 }}
     .slider-display__buttons
       slider-buttons(
         :is-disabled-prev="currentIndex === 0"
