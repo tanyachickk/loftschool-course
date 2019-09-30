@@ -2,6 +2,9 @@
   &__item {
     &:not(:last-child) {
       margin-bottom: 58px;
+      @include tablets {
+        margin-bottom: 40px;
+      }
     }
   }
 }
