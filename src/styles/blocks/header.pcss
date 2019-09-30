@@ -7,8 +7,21 @@
   @include desktopHd {
     padding: 65px 5vw;
   }
+  @include phones {
+    padding: 64px 30px;
+  }
+
+  &__hamburger {
+    position: absolute;
+    top: 67px;
+    right: 40px;
+    z-index: 1;
+  }
 
   &__menu {
+    @include desktop {
+      padding: 0 5vw;
+    }
     @include tablets {
       display: none;
     }
@@ -17,8 +30,76 @@
   &__socials {
     @include tablets {
       position: absolute;
-      top: 65p;
+      top: 65px;
       right: 160px;
     }
+    @include phones {
+      display: none;
+    }
+  }
+
+  &__sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 326px;
+    background-color: white;
+    transform: translateX(100%);
+    transition: transform .2s ease;
+    overflow: hidden;
+
+    @include phones {
+      width: 100%;
+    }
+  }
+}
+
+.hamburger {
+  position: absolute;
+  top: 67px;
+  right: 40px;
+  z-index: 1;
+
+  width: 24px;
+  height: 20px;
+  background: none;
+
+  &__line {
+    position: absolute;
+    left: 0;
+    width: 24px;
+    height: 2px;
+    background-color: white;
+    transition: transform .2s ease;
+    &:nth-child(1) {
+      top: 0;
+    }
+    &:nth-child(2) {
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    &:nth-child(3) {
+      bottom: 0;
+    }
+  }
+
+  &_closed > &__line {
+    background-color: $text-color;
+    &:nth-child(1) {
+      top: 50%;
+      transform: rotate(-45deg);
+    }
+    &:nth-child(2) {
+      opacity: 0;
+    }
+    &:nth-child(3) {
+      top: 50%;
+      transform: rotate(45deg);
+    }
+  }
+
+  &_closed + .header__sidebar {
+    transform: translateX(0);
   }
 }

@@ -3,4 +3,19 @@
   font-size: 72px;
   font-weight: 800;
   line-height: 60px;
+  
+  @include desktop() {
+    font-size: 48px;
+    line-height: 48px;
+  }
+
+  @include tablets() {
+    font-size: 48px;
+    line-height: 48px;
+    text-align: center;
+  }
+
+  @include phones() {
+    font-size: 36px;
+  }
 }
