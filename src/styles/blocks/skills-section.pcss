@@ -1,19 +1,37 @@
 .skills-section {
   position: relative;
+  display: flex;
+  flex-direction: column;
   width: 100%;
   padding: 150px 0;
   background-image: url('~images/content/wood-background.png');
   background-size: cover;
+  overflow: hidden;
+
+  @include desktop {
+    padding: 117px 0 44vw;
+  }
   &__title {
-    margin-left: 664px;
+    margin-left: 37vw;
     color: white;
     font-size: 30px;
     font-weight: 700;
     line-height: 36px;
+    @include desktopHd {
+      margin-left: 28vw;
+    }
+    @include desktop {
+      align-self: center;
+      max-width: 270px;
+      margin-left: 0;
+      font-size: 30px;
+      line-height: 36px;
+      text-align: center;
+    }
   }
   &__description {
     margin-top: 59px;
-    margin-left: 664px;
+    margin-left: 37vw;
     max-width: 590px;
     color: white;
     font-family: 'Open Sans';
@@ -21,15 +39,46 @@
     font-weight: 600;
     line-height: 30px;
     opacity: 0.5;
+    @include desktopHd {
+      margin-left: 28vw;
+    }
+    @include desktop {
+      align-self: center;
+      max-width: 440px;
+      margin-left: 0;
+      margin-top: 30px;
+      font-size: 14px;
+      text-align: center;
+      line-height: 24px;
+    }
   }
   &__widgets {
+    align-self: center;
     padding-top: 96px;
-    margin-left: 788px;
+    margin-left: 44vw;
+    @include desktopHd {
+      margin-left: 35vw;
+    }
+    @include desktop {
+      padding-top: 60px;
+      margin-left: 0;
+    }
   }
   &__image {
     position: absolute;
-    left: -20px;
-    bottom: -91px;
-    width: 682px;
+    left: -1%;
+    bottom: -9%;
+    width: 37vw;
+    @include desktopHd {
+      left: -8%;
+      bottom: -6%;
+      width: 41vw;
+    }
+    @include desktop {
+      left: 50%;
+      bottom: 0;
+      width: 44vw;
+      transform: translate(-50%, 10vw) rotate(-90deg);
+    }
   }
 }

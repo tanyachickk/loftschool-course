@@ -2,6 +2,12 @@
   position: relative;
   width: 150px;
   height: 150px;
+  margin: 0 auto;
+
+  @include desktop {
+    width: 125px;
+    height: 125px;
+  }
 
   &__circle {
     fill: transparent;
@@ -24,5 +30,8 @@
     font-weight: 700;
     opacity: 0.5;
     transform: translate(-50%, -50%);
+    @include desktop {
+      font-size: 16px;
+    }
   }
 }
