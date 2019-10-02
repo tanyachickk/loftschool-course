@@ -11,24 +11,24 @@ export default [
     component: () => import('@/admin/views/Main.vue'),
     children: [
       {
-        path: 'works',
+        path: '/',
+        component: () => import('@/admin/views/About.vue'),
+        meta: {
+          title: 'Блок «Обо мне»',
+        },
+      },
+      {
+        path: '/works',
         component: () => import('@/admin/views/Works.vue'),
         meta: {
           title: 'Блок «Работы»',
         },
       },
       {
-        path: 'reviews',
+        path: '/reviews',
         component: () => import('@/admin/views/Reviews.vue'),
         meta: {
           title: 'Блок «Отзывы»',
-        },
-      },
-      {
-        path: '',
-        component: () => import('@/admin/views/About.vue'),
-        meta: {
-          title: 'Блок «Обо мне»',
         },
       },
     ],

@@ -13,6 +13,7 @@ export default {};
 @import "../styles/layout/base.pcss";
 
 .admin-wrapper {
-  background-color: white;
+  background-image: url('../images/content/train-bridge.jpg');
+  background-size: cover;
 }
 </style>

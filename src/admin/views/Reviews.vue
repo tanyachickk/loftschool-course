@@ -1,10 +1,30 @@
 <template lang="pug">
-  div Reviews
+  .reviews-page
+    page-title
 </template>
 
 <script>
-export default {};
+import PageTitle from "@/admin/components/PageTitle.vue";
+
+export default {
+  components: {
+    PageTitle,
+  }
+};
 </script>
 
 <style lang="pcss" scoped>
+@import '../../styles/mixins.pcss';
+
+.reviews-page {
+  padding: 60px;
+
+  @include desktop {
+    padding: 50px 30px;
+  }
+
+  @include phones {
+    padding: 40px 20px;
+  }
+}
 </style>
