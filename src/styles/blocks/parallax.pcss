@@ -27,6 +27,13 @@
         left: 45%;
         margin-left: 0;
       }
+      @include tablets() {
+        left: 50%;
+        margin-left: -137px;
+      }
+      @include phones() {
+        margin-left: -102px;
+      }
     }
     &_subtitle {
       top: 40vh;
@@ -35,6 +42,17 @@
       @include desktop {
         right: 55%;
         margin-right: 60px;
+      }
+      @include tablets() {
+        top: calc(40vh - 77px);
+        left: 50%;
+        right: auto;
+        margin-left: -72px;
+        margin-right: auto;
+      }
+      @include phones() {
+        margin-left: -65px;
+        top: calc(40vh - 67px);
       }
     }
     &_train {

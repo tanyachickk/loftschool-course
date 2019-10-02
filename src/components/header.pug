@@ -3,6 +3,11 @@ include socials
 header.header
   .header__logo
     include logo
+  button.header__hamburger.hamburger
+    - for (var i = 1; i <= 3; i++) {
+      .hamburger__line
+    - }
+  .header__sidebar
   .header__menu
     include menu
   .header__socials

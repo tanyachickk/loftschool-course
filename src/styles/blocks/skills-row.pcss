@@ -13,10 +13,23 @@
   &__list {
     display: flex;
     flex-wrap: wrap;
+
+    @include tablets {
+      justify-content: center;
+      max-width: 400px;
+    }
   }
   &__item {
     &:not(:last-child) {
       margin-right: 3.5vw;
+    }
+
+    @include tablets {
+      margin: 0 25px 30px;
+    }
+
+    @include phones {
+      margin: 0 15px 25px;
     }
   }
 }

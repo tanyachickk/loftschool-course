@@ -52,7 +52,7 @@ new Vue({
       this.currentReviewIndex = this.currentReviewIndex < this.reviews.length - 2 ? this.currentReviewIndex + 1 : 0;
     },
     setIsMobile() {
-      this.isMobile = window.innerWidth < parseInt(constants['bp-tablets']);
+      this.isMobile = window.innerWidth <= parseInt(constants['bp-tablets']);
     },
   },
   mounted() {
