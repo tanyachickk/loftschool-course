@@ -8,7 +8,7 @@
       a.header__exit-link Выйти
 </template>
 
-<style lang="pcss">
+<style lang="pcss" scoped>
 @import '../../styles/mixins.pcss';
 
 .header {

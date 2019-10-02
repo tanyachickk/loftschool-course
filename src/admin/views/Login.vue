@@ -1,9 +1,17 @@
 <template lang="pug">
   .login-page
+    .login-page__form
+      login-form
 </template>
 
 <script>
-export default {};
+import LoginForm from '@/admin/components/LoginForm.vue';
+
+export default {
+  components: {
+    LoginForm,
+  }
+};
 </script>
 
 <style lang="pcss" scoped>
@@ -13,7 +21,13 @@ export default {};
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #2d3c4e;
-  opacity: 0.9;
+  background-color: rgb(45, 60, 78, .9);
+
+  &__form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
 </style>
