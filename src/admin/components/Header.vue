@@ -5,11 +5,24 @@
     .header__content
       .header__username Татьяна Курочкина
       .header__title Панель администрирования
-      a.header__exit-link Выйти
+      a.header__exit-link(@click="signOut") Выйти
 </template>
 
+<script>
+import { mapActions } from "vuex";
+export default {
+  methods: {
+    ...mapActions("user", ["logout"]),
+    signOut() {
+      this.logout();
+      this.$router.replace("/login");
+    }
+  }
+};
+</script>
+
 <style lang="pcss" scoped>
-@import '../../styles/mixins.pcss';
+@import "../../styles/mixins.pcss";
 
 .header {
   display: flex;
@@ -17,7 +30,11 @@
   align-items: center;
   height: 80px;
   padding: 0 60px;
-  background-image: linear-gradient(to right, #9e4f00 0%, hsl(37, 100%, 35%) 100%);
+  background-image: linear-gradient(
+    to right,
+    #9e4f00 0%,
+    hsl(37, 100%, 35%) 100%
+  );
   color: white;
 
   @include desktop {
@@ -79,7 +96,7 @@
     color: white;
     opacity: 0.7;
     text-decoration: underline;
-    transition: opacity .2s ease;
+    transition: opacity 0.2s ease;
 
     &:hover {
       opacity: 1;

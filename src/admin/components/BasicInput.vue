@@ -3,17 +3,27 @@
     input.basic-input__control(
       :type="type"
       :value="value"
+      :class="{ 'basic-input__control_dirty': value.length }"
       @input="$emit('input', $event.target.value)"
     )
-    .basic-input__icon
-      slot
+    .basic-input__icon(v-if="icon")
+      icon(:name="icon")
     label.basic-input__label {{ label }}
 </template>
 
 <script>
+import Icon from '@/admin/components/Icon.vue';
+
 export default {
+  components: {
+    Icon,
+  },
   props: {
     value: {
+      type: String,
+      default: '',
+    },
+    icon: {
       type: String,
       default: '',
     },
@@ -60,11 +70,11 @@ export default {
     left: 0;
     width: 30px;
     height: 30px;
-    fill: rgba(255, 255, 255, 0.3);
+    fill: rgba(65, 76, 99, 0.3);
     transform: translateY(-50%);
-    z-index: -1;
+    pointer-events: none;
   }
-  &__control:focus ~ &__icon {
+  &__control:focus ~ &__icon, &__control_dirty ~ &__label {
     fill: $accent-color;
   }
   &__label {
@@ -78,12 +88,12 @@ export default {
     line-height: 30px;
     transform: translateY(-50%);
     transition: transform 0.2s ease;
-    z-index: -1;
+    pointer-events: none;
     @include desktop {
       font-size: 14px;
     }
   }
-  &__control:focus ~ &__label {
+  &__control:focus ~ &__label, &__control_dirty ~ &__label {
     transform: translateY(-200%);
   }
 }

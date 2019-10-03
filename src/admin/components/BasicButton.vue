@@ -1,5 +1,5 @@
 <template lang="pug">
-   button.basic-button
+   button.basic-button(v-on="$listeners")
     slot
 </template>
 
@@ -21,6 +21,7 @@ export default {
   font-weight: 700;
   text-transform: uppercase;
   transition: background-image 0.2s ease;
+  outline: none;
   cursor: pointer;
   @include phones {
     width: 100%;
