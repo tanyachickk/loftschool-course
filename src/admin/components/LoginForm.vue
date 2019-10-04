@@ -3,12 +3,13 @@
     .login-form__title Авторизация
     button.login-form__close
       icon(name="remove")
-    form.login-form__body
+    form.login-form__body(@submit.prevent="signIn")
       .login-form__control
         basic-input(
           v-model="name"
           icon="user"
           label="Логин"
+          :required="true"
         )
       .login-form__control
         basic-input(
@@ -16,36 +17,37 @@
           icon="key"
           label="Пароль"
           type="password"
+          :required="true"
         )
       .login-form__button
-        basic-button(@click="signIn") Отправить
+        basic-button ОТПРАВИТЬ
 </template>
 
 <script>
-import { mapActions } from "vuex";
-import BasicInput from "@/admin/components/BasicInput.vue";
-import BasicButton from "@/admin/components/BasicButton.vue";
-import Icon from "@/admin/components/Icon.vue";
+import { mapActions } from 'vuex';
+import BasicInput from '@/admin/components/BasicInput.vue';
+import BasicButton from '@/admin/components/BasicButton.vue';
+import Icon from '@/admin/components/Icon.vue';
 
 export default {
   components: {
     BasicInput,
     BasicButton,
-    Icon
+    Icon,
   },
   data() {
     return {
-      name: "",
-      password: ""
+      name: '',
+      password: '',
     };
   },
   methods: {
-    ...mapActions("user", ["login"]),
+    ...mapActions('user', ['login']),
     async signIn() {
       await this.login({ name: this.name, password: this.password });
-      this.$router.replace("/");
-    }
-  }
+      this.$router.replace('/');
+    },
+  },
 };
 </script>
 

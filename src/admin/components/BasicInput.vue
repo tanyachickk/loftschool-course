@@ -3,6 +3,7 @@
     input.basic-input__control(
       :type="type"
       :value="value"
+      :required="required"
       :class="{ 'basic-input__control_dirty': value.length }"
       @input="$emit('input', $event.target.value)"
     )
@@ -23,6 +24,10 @@ export default {
       type: String,
       default: '',
     },
+    required: {
+      type: Boolean,
+      default: false,
+    },
     icon: {
       type: String,
       default: '',
@@ -34,8 +39,8 @@ export default {
     type: {
       type: String,
       default: 'text',
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -74,7 +79,8 @@ export default {
     transform: translateY(-50%);
     pointer-events: none;
   }
-  &__control:focus ~ &__icon, &__control_dirty ~ &__label {
+  &__control:focus ~ &__icon,
+  &__control_dirty ~ &__label {
     fill: $accent-color;
   }
   &__label {
@@ -93,9 +99,9 @@ export default {
       font-size: 14px;
     }
   }
-  &__control:focus ~ &__label, &__control_dirty ~ &__label {
+  &__control:focus ~ &__label,
+  &__control_dirty ~ &__label {
     transform: translateY(-200%);
   }
 }
-
 </style>
