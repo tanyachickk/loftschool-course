@@ -1,31 +1,29 @@
-const fs = require("fs");
+const fs = require('fs');
 
 module.exports = {
-  syntax: "postcss-scss",
+  syntax: 'postcss-scss',
   parser: 'postcss-scss',
   plugins: [
-    require("postcss-easy-import")({
-      extensions: ".pcss"
+    require('postcss-easy-import')({
+      extensions: '.pcss',
     }),
-    require("autoprefixer")({
-      cascade: false
+    require('autoprefixer')({
+      cascade: false,
     }),
-    require("postcss-advanced-variables")({
-      variables: JSON.parse(
-        fs.readFileSync("./src/styles/variables.json", "utf-8")
-      )
+    require('postcss-advanced-variables')({
+      variables: JSON.parse(fs.readFileSync('./src/styles/variables.json', 'utf-8')),
     }),
-    require("postcss-nested"),
-    require("postcss-rgb"),
-    require("postcss-inline-svg")({
+    require('postcss-nested'),
+    require('postcss-rgb'),
+    require('postcss-inline-svg')({
       removeFill: true,
-      path: "./src/images/icons"
+      path: './src/images/icons',
     }),
-    require("cssnano"),
-    require("postcss-pxtorem")({
+    require('cssnano'),
+    require('postcss-pxtorem')({
       rootValue: 16,
-      propList: ["*", "!*border*"],
-      selectorBlackList: [/^html$/]
-    })
-  ]
+      propList: ['*', '!*border*'],
+      selectorBlackList: [/^html$/, /^.hamburger__line$/],
+    }),
+  ],
 };

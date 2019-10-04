@@ -2,14 +2,14 @@ include input
 include textarea
 include button
 
-#contact.feedback-form
+form#contact.feedback-form
   .feedback-form__title Связаться со мной
   .feedback-form__row
     .feedback-form__name
-      +input('text', 'Введите ваше имя', '', 'user')
+      +input('text', 'Введите ваше имя', '', true, 'user')
     .feedback-form__mail
-      +input('mail', 'Введите ваш email', '', 'envelope')
+      +input('email', 'Введите ваш email', '', true, 'envelope')
   .feedback-form__message
-    +textarea('Сообщение к письму', '', 'message')
+    +textarea('Сообщение к письму', '', true, 'message')
   .feedback-form__button
-    +button('Отправить')
+    +button('Отправить', 'submit')

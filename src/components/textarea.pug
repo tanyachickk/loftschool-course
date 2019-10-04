@@ -1,7 +1,7 @@
 include ../mixins
 
-mixin textarea(label, className, icon)
+mixin textarea(label, className, required, icon)
   .textarea
-    textarea.textarea__control
+    textarea.textarea__control(required=required)
     +icon(icon, 'textarea__icon')
     label.textarea__label #{label}

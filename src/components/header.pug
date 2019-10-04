@@ -1,4 +1,5 @@
 include socials
+include menu
 
 header.header
   .header__logo
@@ -9,6 +10,6 @@ header.header
     - }
   .header__sidebar
   .header__menu
-    include menu
+    +menu('header')
   .header__socials
     +socials()

@@ -1,6 +1,7 @@
-nav.menu
-  ul.menu__list
-    - var menu = [{ title: 'Главная', url: '#main' }, { title: 'Обо мне', url: '#about' }, { title: 'Навыки', url: '#skills' }, { title: 'Работы', url: '#works' }, { title: 'Отзывы', url: '#reviews' }, { title: 'Связаться', url: '#contact' }]
-    each item in menu
-      li.menu__item
-        a.menu__link(href=item.url) #{item.title}
+mixin menu(mod)
+  nav.menu(class=( mod ? 'menu_' + mod : ''))
+    ul.menu__list
+      - var menu = [{ title: 'Главная', url: '#main' }, { title: 'Обо мне', url: '#about' }, { title: 'Навыки', url: '#skills' }, { title: 'Работы', url: '#works' }, { title: 'Отзывы', url: '#reviews' }, { title: 'Связаться', url: '#contact' }]
+      each item in menu
+        li.menu__item
+          a.menu__link(href=item.url) #{item.title}

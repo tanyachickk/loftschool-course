@@ -1,4 +1,5 @@
 include socials
+include menu
 
 footer.footer
   .footer__grid
@@ -10,7 +11,7 @@ footer.footer
       p Личный сайт
       p веб-разработчика
     .footer__menu
-      include menu
+      +menu()
     .footer__site-info.footer-text Этот сайт я сделала в рамках обучения в Школе онлайн образования LoftSchool
     .footer__socials
       +socials('bordered', true)
