@@ -40,7 +40,7 @@
     @include tablets {
       position: absolute;
       top: 52px;
-      right: 160px;
+      right: 150px;
     }
     @include phones {
       display: none;
@@ -48,15 +48,19 @@
   }
 
   &__sidebar {
+    display: none;
     position: fixed;
     top: 0;
-    right: 0;
+    left: 100%;
     bottom: 0;
     width: 326px;
-    background-color: white;
-    transform: translateX(100%);
+    transform: translateX(0);
     transition: transform 0.2s ease;
     overflow: hidden;
+
+    @include tablets {
+      display: block;
+    }
 
     @include phones {
       width: 100%;
@@ -109,6 +113,6 @@
   }
 
   &_closed + .header__sidebar {
-    transform: translateX(0);
+    transform: translateX(-100%);
   }
 }
