@@ -22,7 +22,7 @@ const review = {
 
 new Vue({
   el: '#reviews-container',
-  template: '#reviews',
+  template: '#reviews-content',
   components: {
     review,
   },

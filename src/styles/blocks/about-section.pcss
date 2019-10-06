@@ -1,23 +1,20 @@
 .about-section {
   position: relative;
   width: 100%;
-  margin-top: 20vh;
+  padding-top: 20vh;
   padding-bottom: 270px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url('~images/content/black-background.png');
-  background-size: cover;
 
   @include desktop() {
-    margin: 20vh auto 0;
+    margin: 0 auto;
     max-width: 1000px;
     padding: 0 40px 147px;
   }
 
   @include phones() {
-    margin: 100px auto;
-    padding: 0 30px;
+    padding: 100px 30px 0;
   }
 
   &__grid {
@@ -27,7 +24,7 @@
     grid-template-columns: 300px 540px;
     grid-column-gap: 158px;
     grid-row-gap: 79px;
-    
+
     @include desktop() {
       width: 100%;
       grid-template-rows: auto auto;
@@ -60,7 +57,7 @@
   &__profile {
     grid-area: profile;
     justify-self: end;
-  
+
     @include desktop() {
       width: 100%;
     }
@@ -75,7 +72,7 @@
 
   &__author-info {
     grid-area: info;
-  
+
     @include tablets() {
       margin-top: 50px;
     }
