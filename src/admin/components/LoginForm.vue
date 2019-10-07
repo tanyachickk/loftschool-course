@@ -1,7 +1,7 @@
 <template lang="pug">
   .login-form
     .login-form__title Авторизация
-    button.login-form__close
+    button.login-form__close(@click="exitFromAdmin")
       icon(name="remove")
     form.login-form__body(@submit.prevent="signIn")
       .login-form__control
@@ -46,6 +46,9 @@ export default {
     async signIn() {
       await this.login({ name: this.name, password: this.password });
       this.$router.replace('/');
+    },
+    exitFromAdmin() {
+      location.href = 'https://tanyachickk.dev';
     },
   },
 };

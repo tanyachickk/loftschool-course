@@ -22,13 +22,12 @@ export default {
     },
   },
   actions: {
-    async fetchUser() {
+    async fetchUser({ commit }) {
       try {
-        const response = await this.$axios.get('/user', params);
-        commit('SET_USER', response.data);
-        return response;
+        const { data } = await this.$axios.get('/user');
+        commit('SET_USER', data.user);
       } catch (error) {
-        // error handling
+        throw new Error(error.response.data.error || error.response.data.message);
       }
     },
     async login({ dispatch }, params) {

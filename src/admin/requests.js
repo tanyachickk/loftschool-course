@@ -1,12 +1,13 @@
 import axios from 'axios';
+import { getToken, setAuthHttpHeaderToAxios, setToken } from '@/admin/helpers/token';
 
-const token = localStorage.getItem('token');
+axios.defaults.baseURL = process.env.BASE_URL;
 
-axios.defaults.baseURL = 'https://webdev-api.loftschool.com/';
-axios.defaults.headers['Authorization'] = `Bearer ${token}`;
+const token = getToken();
+if (token) setAuthHttpHeaderToAxios(axios, token);
 
 axios.interceptors.response.use(
-  function(response) {
+  (response) => {
     return response;
   },
   (error) => {
@@ -15,14 +16,15 @@ axios.interceptors.response.use(
     if (error.response.status === 401) {
       return axios.post('/refreshToken').then((response) => {
         const token = response.data.token;
-        localStorage.setItem('token', token);
-        axios.defaults.headers['Authorization'] = `Bearer ${token}`;
+        setToken(token);
+        setAuthHttpHeaderToAxios(axios, token);
         originalRequest.headers['Authorization'] = `Bearer ${token}`;
+
         return axios(originalRequest);
       });
     }
     return Promise.reject(error);
-  },
+  }
 );
 
 export default axios;
