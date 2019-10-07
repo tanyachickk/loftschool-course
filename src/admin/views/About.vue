@@ -65,7 +65,9 @@ export default {
         result[category.id] = [];
       });
       this.skills.forEach((skill) => {
-        result[skill.category].push(skill);
+        if (result[skill.category]) {
+          result[skill.category].push(skill);
+        }
       });
       return result;
     },
@@ -141,12 +143,16 @@ export default {
   }
 
   @include phones {
-    padding: 40px 20px;
+    padding: 40px 0;
   }
 
   &__header {
     display: flex;
     align-items: center;
+
+    @include phones {
+      padding: 0 20px;
+    }
   }
 
   &__add-group {
@@ -155,9 +161,18 @@ export default {
 
   &__content {
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 1fr 1fr;
     grid-gap: 32px;
     margin-top: 60px;
+
+    @include desktop {
+      margin-top: 48px;
+      grid-gap: 20px;
+    }
+
+    @include tablets {
+      grid-template-columns: 1fr;
+    }
   }
 
   &__skill-group {

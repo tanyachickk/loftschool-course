@@ -13,6 +13,7 @@
       :class="inputClass"
       v-on="listeners"
     )
+    .simple-input__measure(v-if="measure") {{ measure }}
 </template>
 
 <script>
@@ -53,6 +54,10 @@ export default {
     disabled: {
       type: Boolean,
       default: false,
+    },
+    measure: {
+      type: String,
+      default: '',
     },
   },
   computed: {
@@ -112,6 +117,12 @@ export default {
         font-weight: 400;
       }
     }
+  }
+  &__measure {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
   }
   &_disabled {
     &::after {

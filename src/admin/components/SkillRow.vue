@@ -13,6 +13,7 @@
         type="number"
         min="0"
         max="100"
+        measure="%"
       )
     td.skill__controls
       .skill__buttons(v-if="isEditMode")

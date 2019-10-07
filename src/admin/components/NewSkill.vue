@@ -11,6 +11,7 @@
         v-model="percent"
         :disabled="isDisabled"
         type="number"
+        measure="%"
       )
     .new-skill__button
       basic-button(
@@ -67,7 +68,7 @@ export default {
   align-items: flex-end;
 
   &__title {
-    width: 218px;
+    flex-basis: 218px;
   }
 
   &__percent {
