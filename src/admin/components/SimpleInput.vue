@@ -1,6 +1,8 @@
 <template lang="pug">
-  .sinple-input
-    input.sinple-input__control(
+  .simple-input(
+    :class="{ 'simple-input_disabled': disabled }"
+  )
+    input.simple-input__control(
       :type="type"
       :value="value"
       :min="minValue"
@@ -9,7 +11,7 @@
       :readonly="readonly"
       :placeholder="placeholder"
       :class="inputClass"
-      @input="$emit('input', $event.target.value)"
+      v-on="listeners"
     )
 </template>
 
@@ -48,11 +50,25 @@ export default {
       type: String,
       default: 'default',
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
+    listeners() {
+      return {
+        ...this.$listeners,
+        input: (event) => {
+          if (!this.disabled) {
+            this.$emit('input', event.target.value);
+          }
+        },
+      };
+    },
     inputClass() {
       return {
-        [`sinple-input__control_${this.size}`]: true,
+        [`simple-input__control_${this.size}`]: true,
       };
     },
   },
@@ -62,7 +78,7 @@ export default {
 <style lang="postcss" scoped>
 @import '../../styles/mixins.pcss';
 
-.sinple-input {
+.simple-input {
   position: relative;
   width: 100%;
   &__control {
@@ -95,6 +111,17 @@ export default {
       &::placeholder {
         font-weight: 400;
       }
+    }
+  }
+  &_disabled {
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(white, 0.8);
     }
   }
 }

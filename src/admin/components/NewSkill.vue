@@ -3,17 +3,20 @@
     .new-skill__title
       simple-input(
         v-model="title"
+        :disabled="isDisabled"
         placeholder="Новый навык"
       )
     .new-skill__percent
       simple-input(
         v-model="percent"
+        :disabled="isDisabled"
         type="number"
       )
     .new-skill__button
       basic-button(
         icon="plus"
         type="flat"
+        :disabled="isDisabled"
         :circle="true"
         @click="createSkill"
       )
@@ -28,6 +31,12 @@ export default {
     SimpleInput,
     BasicButton,
   },
+  props: {
+    isDisabled: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
       title: '',
@@ -37,8 +46,10 @@ export default {
   methods: {
     createSkill() {
       // TODO: validation
-      this.$emit('add', { title: this.title, percent: this.percent });
-      this.resetSkillData();
+      if (this.title && this.percent >= 0 && this.percent <= 100) {
+        this.$emit('add', { title: this.title, percent: this.percent });
+        this.resetSkillData();
+      }
     },
     resetSkillData() {
       this.title = '';

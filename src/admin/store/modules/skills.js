@@ -24,15 +24,15 @@ export default {
       try {
         const response = await this.$axios.post('/skills', skill);
         commit('ADD_SKILL', response.data);
-        return response;
       } catch (error) {
         // error handling
       }
     },
 
-    async fetchSkills({ commit }, skill) {
+    async fetchSkills({ rootState, commit }, skill) {
       try {
-        const response = await this.$axios.get('/skills/1', skill);
+        const userId = rootState.user.user.id;
+        const response = await this.$axios.get(`/skills/${userId}`, skill);
         commit('SET_SKILLS', response.data);
         return response;
       } catch (error) {

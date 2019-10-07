@@ -2,25 +2,33 @@
   .category-control
     .category-control__input
       simple-input(
+        :value="value"
+        :readonly="!isEditMode"
         size="large"
         placeholder="Название новой группы"
-        :readonly="!isEditMode"
+        @input="$emit('input', $event)"
       )
     .category-control__buttons
-      button.category-control__button.category-control__button_edit(
-        v-if="!isEditMode"
-        key="edit"
-        @click="isEditMode = true"
-      )
-        icon(name="pencil")
+      template(v-if="!isEditMode")
+        button.category-control__button.category-control__button_edit(
+          key="edit"
+          @click="$emit('edit')"
+        )
+          icon(name="pencil")
+        button.category-control__button.category-control__button_delete(
+          key="delete"
+          @click="$emit('delete')"
+        )
+          icon(name="trash")
       template(v-else)
         button.category-control__button.category-control__button_save(
           key="save"
+          @click="$emit('save')"
         )
           icon(name="tick")
         button.category-control__button.category-control__button_cancel(
           key="cancel"
-          @click="isEditMode = false"
+          @click="$emit('cancel')"
         )
           icon(name="cross")
 </template>
@@ -35,19 +43,17 @@ export default {
     Icon,
   },
   props: {
-    category: {
+    value: {
       type: String,
       default: '',
     },
-    skills: {
-      type: Array,
-      default: () => [],
+    isEditMode: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
-    return {
-      isEditMode: true,
-    };
+    return {};
   },
 };
 </script>
@@ -67,7 +73,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-right: 10px;
+    margin-right: 15px;
   }
 
   &__button {
@@ -84,6 +90,9 @@ export default {
       opacity: 0.5;
     }
 
+    &_delete {
+      margin-left: 19px;
+    }
     &_save {
       fill: $success-color;
       margin-right: 19px;

@@ -1,16 +1,27 @@
 <template lang="pug">
   card.skill-group
-    .skill-group__header
-      category-control(
-      )
-    .skill-group__body
+    category-control(
+      slot="title"
+      v-model="categoryTitle"
+      :is-edit-mode="isEditMode"
+      @edit="isEditMode = true"
+      @cancel="onResetCategoryChanges"
+      @delete="onDeleteSkillGroup"
+      @save="onSaveCategoryChanges"
+    )
+    template(slot="content")
       table.skill-group__skills-table
-        skill-row
-        skill-row
-        skill-row
-        skill-row
+        skill-row(
+          v-for="skill in skills"
+          :title="skill.title"
+          :percent="skill.percent"
+          @save="$emit('update-skill', { ...skill, ...$event })"
+          @delete="$emit('delete-skill', skill.id)"
+        )
       .skill-group__new-skill
-        new-skill
+        new-skill(
+          @add="$emit('add-skill', $event)"
+        )
 </template>
 
 <script>
@@ -27,9 +38,13 @@ export default {
     NewSkill,
   },
   props: {
-    category: {
+    title: {
       type: String,
       default: '',
+    },
+    categoryId: {
+      type: Number,
+      default: 0,
     },
     skills: {
       type: Array,
@@ -37,7 +52,26 @@ export default {
     },
   },
   data() {
-    return {};
+    return {
+      categoryTitle: '',
+      isEditMode: false,
+    };
+  },
+  methods: {
+    onResetCategoryChanges() {
+      this.categoryTitle = this.title;
+      this.isEditMode = false;
+    },
+    onSaveCategoryChanges() {
+      this.$emit('update-category', this.categoryTitle);
+      this.isEditMode = false;
+    },
+    onDeleteSkillGroup() {
+      this.$emit('delete-group');
+    },
+  },
+  created() {
+    this.categoryTitle = this.title;
   },
 };
 </script>
@@ -46,22 +80,8 @@ export default {
 @import '../../styles/mixins.pcss';
 
 .skill-group {
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  min-height: 387px;
-
-  &__header {
-    padding-bottom: 14px;
-    border-bottom: 1px solid rgba(31, 35, 45, 0.15);
-  }
-
-  &__body {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-  }
-
+  height: 100%;
+  min-height: 415px;
   &__skills-table {
     margin-bottom: 30px;
   }

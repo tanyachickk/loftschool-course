@@ -12,23 +12,38 @@
         ) Добавить группу
     .about-page__content
       .about-page__skill-group(v-if="isShowNewSkill")
-        skill-group()
+        new-skill-group(
+          @create-category="createCategory"
+          @reset="isShowNewSkill = false"
+        )
       .about-page__skill-group(
-        v-for="skill in skills"
+        v-for="category in categories"
       )
-        skill-group()
+        skill-group(
+          :key="category.id"
+          :title="category.category"
+          :category-id="category.id"
+          :skills="skillsByCategory[category.id]"
+          @update-category="updateCategory(category.id, $event)"
+          @delete-group="deleteSkillGroup(category.id)"
+          @add-skill="createSkill(category.id, $event)"
+          @update-skill="updateSkill"
+          @delete-skill="deleteSkill"
+        )
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex';
 import PageTitle from '@/admin/components/PageTitle.vue';
 import BasicButton from '@/admin/components/BasicButton.vue';
+import NewSkillGroup from '@/admin/components/NewSkillGroup.vue';
 import SkillGroup from '@/admin/components/SkillGroup.vue';
 
 export default {
   components: {
     PageTitle,
     BasicButton,
+    NewSkillGroup,
     SkillGroup,
   },
   data() {
@@ -38,23 +53,79 @@ export default {
   },
   computed: {
     ...mapState('categories', {
-      categories: (state) => state.categories,
+      categories: (state) =>
+        state.categories.sort((a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime()),
     }),
     ...mapState('skills', {
       skills: (state) => state.skills,
     }),
+    skillsByCategory() {
+      const result = {};
+      this.categories.forEach((category) => {
+        result[category.id] = [];
+      });
+      this.skills.forEach((skill) => {
+        result[skill.category].push(skill);
+      });
+      return result;
+    },
   },
   methods: {
-    ...mapActions('skills', ['fetchSkills']),
+    ...mapActions('skills', ['fetchSkills', 'addSkill', 'editSkill', 'removeSkill']),
+    ...mapActions('categories', ['fetchCategories', 'addNewSkillGroup', 'updateSkillGroup', 'removeSkillGroup']),
     showNewSkill() {
       this.isShowNewSkill = true;
     },
     hideNewSkill() {
       this.isShowNewSkill = false;
     },
+    async createCategory(value) {
+      try {
+        this.addNewSkillGroup(value);
+      } catch (e) {
+        // TODO
+      }
+      this.isShowNewSkill = false;
+    },
+    async updateCategory(id, title) {
+      try {
+        this.updateSkillGroup({ id, title });
+      } catch (e) {
+        // TODO
+      }
+    },
+    async createSkill(category, data) {
+      try {
+        this.addSkill({ ...data, category });
+      } catch (e) {
+        // TODO
+      }
+    },
+    async updateSkill(data) {
+      try {
+        this.editSkill(data);
+      } catch (e) {
+        // TODO
+      }
+    },
+    async deleteSkill(id) {
+      try {
+        this.removeSkill(id);
+      } catch (e) {
+        // TODO
+      }
+    },
+    async deleteSkillGroup(id) {
+      try {
+        this.removeSkillGroup(id);
+      } catch (e) {
+        // TODO
+      }
+    },
   },
   created() {
     this.fetchSkills();
+    this.fetchCategories();
   },
 };
 </script>
@@ -83,13 +154,13 @@ export default {
   }
 
   &__content {
-    display: flex;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-gap: 32px;
     margin-top: 60px;
   }
 
   &__skill-group {
-    flex-basis: 50%;
-    margin-right: 32px;
   }
 }
 </style>

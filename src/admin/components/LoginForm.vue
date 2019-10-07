@@ -37,8 +37,8 @@ export default {
   },
   data() {
     return {
-      name: '',
-      password: '',
+      name: 'tkurochkina-0719',
+      password: 'tanyushka377',
     };
   },
   methods: {

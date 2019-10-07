@@ -1,7 +1,7 @@
 <template lang="pug">
    button.basic-button(
      :class="buttonClass"
-     v-on="$listeners"
+     v-on="listerers"
     )
     .basic-button__icon-wrapper(v-if="icon")
       icon.basic-button__icon(:name="icon")
@@ -27,7 +27,11 @@ export default {
     },
     size: {
       type: 'large' | 'default' | 'small',
-      defsult: 'default',
+      default: 'default',
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
     },
     circle: {
       type: Boolean,
@@ -39,9 +43,20 @@ export default {
     },
   },
   computed: {
+    listerers() {
+      return {
+        ...this.$listeners,
+        click: (event) => {
+          if (!this.disabled) {
+            this.$emit('click', event);
+          }
+        },
+      };
+    },
     buttonClass() {
       return {
         'basic-button_circle': this.circle,
+        'basic-button_disabled': this.disabled,
         [`basic-button_${this.size}`]: true,
         [`basic-button_${this.type}`]: true,
         [`basic-button_${this.theme}`]: true,
@@ -116,6 +131,12 @@ export default {
   &_small&_circle &__icon-wrapper {
     width: 21px;
     height: 21px;
+  }
+
+  &_circle&_disabled &__icon-wrapper {
+    background: $text-color;
+    cursor: default;
+    opacity: 0.3;
   }
 
   &__icon {

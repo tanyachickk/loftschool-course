@@ -4,8 +4,8 @@
       :type="type"
       :value="value"
       :required="required"
-      :class="{ 'basic-input__control_dirty': value.length }"
-      @input="$emit('input', $event.target.value)"
+      :class="inputClass"
+      v-on="listeners"
     )
     .basic-input__icon(v-if="icon")
       icon(:name="icon")
@@ -28,6 +28,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
     icon: {
       type: String,
       default: '',
@@ -39,6 +43,24 @@ export default {
     type: {
       type: String,
       default: 'text',
+    },
+  },
+  computed: {
+    listeners() {
+      return {
+        ...this.$listeners,
+        input: (event) => {
+          if (!this.disabled) {
+            this.$emit('input', event.target.value);
+          }
+        },
+      };
+    },
+    inputClass() {
+      return {
+        'basic-input__control_dirty': this.value.length,
+        'basic-input__control_disabled': this.disabled,
+      };
     },
   },
 };

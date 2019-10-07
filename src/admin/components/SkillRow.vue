@@ -2,25 +2,40 @@
   tr.skill
     td.skill__title
       simple-input(
-        :value="title"
+        v-model="skillTitle"
         :readonly="!isEditMode"
         placeholder="Название навыка"
       )
     td.skill__percent
       simple-input(
-        :value="percent"
+        v-model="skillPercent"
         :readonly="!isEditMode"
+        type="number"
+        min="0"
+        max="100"
       )
     td.skill__controls
       .skill__buttons(v-if="isEditMode")
-        button.skill__button.skill__button_save(key="save")
+        button.skill__button.skill__button_save(
+          key="save"
+          @click="onSave"
+        )
           icon(name="tick")
-        button.skill__button.skill__button_cancel(key="cancel" @click="isEditMode = false")
+        button.skill__button.skill__button_cancel(
+          key="cancel"
+          @click="onCancel"
+        )
           icon(name="cross")
       .skill__buttons(v-else)
-        button.skill__button.skill__button_edit(key="edit"  @click="isEditMode = true")
+        button.skill__button.skill__button_edit(
+          key="edit"
+          @click="onEdit"
+        )
           icon(name="pencil")
-        button.skill__button.skill__button_remove(key="delete")
+        button.skill__button.skill__button_remove(
+          key="delete"
+          @click="onDelete"
+        )
           icon(name="trash")
 </template>
 
@@ -46,9 +61,31 @@ export default {
   data() {
     return {
       isEditMode: false,
+      skillTitle: '',
+      skillPercent: '',
     };
   },
-  methods: {},
+  methods: {
+    onSave() {
+      this.$emit('save', { title: this.skillTitle, percent: this.skillPercent });
+      this.isEditMode = false;
+    },
+    onCancel() {
+      this.skillTitle = this.title;
+      this.skillPercent = this.percent;
+      this.isEditMode = false;
+    },
+    onDelete() {
+      this.$emit('delete');
+    },
+    onEdit() {
+      this.isEditMode = true;
+    },
+  },
+  created() {
+    this.skillTitle = this.title;
+    this.skillPercent = this.percent;
+  },
 };
 </script>
 
