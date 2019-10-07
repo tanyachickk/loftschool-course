@@ -54,7 +54,7 @@ export default {
 };
 </script>
 
-<style lang="pcss" scoped>
+<style lang="postcss" scoped>
 .login-form {
   position: relative;
   display: flex;

@@ -7,13 +7,13 @@
   justify-content: center;
   align-items: center;
 
-  @include desktop() {
+  @include desktop {
     margin: 0 auto;
     max-width: 1000px;
     padding: 20vh 40px 147px;
   }
 
-  @include phones() {
+  @include phones {
     padding: 100px 30px 0;
   }
 
@@ -25,14 +25,14 @@
     grid-column-gap: 158px;
     grid-row-gap: 79px;
 
-    @include desktop() {
+    @include desktop {
       width: 100%;
       grid-template-rows: auto auto;
       grid-template-columns: 250px 1fr;
       grid-column-gap: 8vw;
       grid-row-gap: 46px;
     }
-    @include tablets() {
+    @include tablets {
       grid-template-areas: 'avatar' 'profile' 'info' 'remark';
       grid-template-rows: auto;
       grid-template-columns: 1fr;
@@ -44,11 +44,11 @@
     grid-area: avatar;
     justify-self: end;
 
-    @include desktop() {
+    @include desktop {
       justify-self: start;
     }
 
-    @include tablets() {
+    @include tablets {
       display: flex;
       justify-content: center;
       width: 100%;
@@ -58,11 +58,11 @@
     grid-area: profile;
     justify-self: end;
 
-    @include desktop() {
+    @include desktop {
       width: 100%;
     }
 
-    @include tablets() {
+    @include tablets {
       display: flex;
       justify-content: center;
       width: 100%;
@@ -73,10 +73,10 @@
   &__author-info {
     grid-area: info;
 
-    @include tablets() {
+    @include tablets {
       margin-top: 50px;
     }
-    @include phones() {
+    @include phones {
       margin-top: 30px;
     }
   }
@@ -84,7 +84,7 @@
   &__remark {
     grid-area: remark;
 
-    @include tablets() {
+    @include tablets {
       margin-top: 50px;
     }
   }

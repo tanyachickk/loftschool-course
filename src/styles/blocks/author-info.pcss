@@ -1,5 +1,5 @@
 .author-info {
-  @include tablets() {
+  @include tablets {
     margin: 0 auto;
     max-width: 500px;
     text-align: center;
@@ -13,11 +13,11 @@
     line-height: 30px;
     opacity: 0.5;
 
-    @include desktop() {
+    @include desktop {
       font-size: 14px;
       line-height: 24px;
     }
-    @include phones() {
+    @include phones {
       text-align: left;
     }
   }
@@ -28,13 +28,13 @@
     font-weight: 700;
     line-height: 48px;
 
-    @include desktop() {
+    @include desktop {
       font-size: 30px;
     }
-    @include phones() {
+    @include phones {
       line-height: 36px;
     }
-    @include phones() {
+    @include phones {
       text-align: left;
     }
   }
@@ -45,11 +45,11 @@
     line-height: 30px;
     opacity: 0.5;
 
-    @include desktop() {
+    @include desktop {
       font-size: 14px;
       line-height: 24px;
     }
-    @include phones() {
+    @include phones {
       text-align: left;
     }
   }

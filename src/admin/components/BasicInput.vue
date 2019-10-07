@@ -44,7 +44,7 @@ export default {
 };
 </script>
 
-<style lang="pcss" scoped>
+<style lang="postcss" scoped>
 @import '../../styles/mixins.pcss';
 
 .basic-input {

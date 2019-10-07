@@ -14,7 +14,7 @@ export default {
 };
 </script>
 
-<style lang="pcss" scoped>
+<style lang="postcss" scoped>
 .login-page {
   position: absolute;
   top: 0;

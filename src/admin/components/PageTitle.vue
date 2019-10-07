@@ -2,7 +2,7 @@
   h1.page-title {{ $route.meta.title }}
 </template>
 
-<style lang="pcss" scoped>
+<style lang="postcss" scoped>
 @import '../../styles/mixins.pcss';
 
 .page-title {
