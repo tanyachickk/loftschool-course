@@ -1,8 +1,9 @@
 script(type="text/x-template")#skills-list
-  ul.skills
+  ul.skills(ref="skills")
     li.skills__item(v-for="skill in skills" :key="skill.skillsGroup")
       skills-row(
         :skill="skill"
+        :is-in-viewport="isInViewport"
       )
 
 script(type="text/x-template")#skills-row
@@ -13,6 +14,7 @@ script(type="text/x-template")#skills-row
         skill(
           :skillName="skillName"
           :skillPercent="skillPercent"
+          :is-in-viewport="isInViewport"
         )
 
 script(type="text/x-template")#skill

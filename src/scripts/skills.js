@@ -10,6 +10,10 @@ const skill = {
     skillPercent: {
       type: Number,
     },
+    isInViewport: {
+      type: Boolean,
+      default: true,
+    }
   },
   data() {
     return {
@@ -21,7 +25,7 @@ const skill = {
       return 2 * Math.PI * this.r;
     },
     lineLength() {
-      return this.circumference * (1 - this.skillPercent / 100);
+      return this.isInViewport ? this.circumference * (1 - this.skillPercent / 100) : this.circumference;
     },
   },
 };
@@ -35,6 +39,10 @@ const skillsRow = {
     skill: {
       type: Object,
     },
+    isInViewport: {
+      type: Boolean,
+      default: true,
+    }
   },
 };
 
@@ -47,6 +55,24 @@ new Vue({
   data() {
     return {
       skills,
+      observer: null,
+      isInViewport: false,
     };
   },
+  methods: {
+    onIntersecting(entries) {
+      entries.forEach((entry) => {
+        if (entry.target === this.$refs.skills) {
+          this.isInViewport = entry.isIntersecting;
+        }
+      })
+    }
+  },
+  mounted() {
+    this.observer = new IntersectionObserver(this.onIntersecting);
+    this.observer.observe(this.$refs.skills);
+  },
+  beforeDestroy() {
+    this.observer.unobserve(this.$refs.skills);
+  }
 });
