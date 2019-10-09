@@ -43,12 +43,12 @@ script(type="text/x-template")#slider-thumbs
 
 script(type="text/x-template")#slider-buttons
   .slider-buttons
-    .slider-buttons__button(
+    button.slider-buttons__button(
       :class="{ 'slider-buttons__button_disabled': isDisabledPrev }"
       @click="onPrevButtonClick"
     )
       +icon('arrow-down', 'slider-buttons__icon slider-buttons__icon_prev')
-    .slider-buttons__button(
+    button.slider-buttons__button(
       :class="{ 'slider-buttons__button_disabled': isDisabledNext }"
       @click="onNextButtonClick"
     )
