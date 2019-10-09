@@ -37,8 +37,8 @@ export default {
   },
   data() {
     return {
-      name: 'tkurochkina-0719',
-      password: 'tanyushka377',
+      name: '',
+      password: '',
     };
   },
   methods: {
@@ -48,7 +48,7 @@ export default {
       this.$router.replace('/');
     },
     exitFromAdmin() {
-      location.href = 'https://tanyachickk.dev';
+      location.href = 'https://tanyachickk.github.io/loftschool-course';
     },
   },
 };
