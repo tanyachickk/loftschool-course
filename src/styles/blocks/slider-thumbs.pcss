@@ -4,16 +4,22 @@
   height: 100px;
   &__item {
     position: relative;
-    width: 178px;
+    width: 25%;
     flex-shrink: 0;
     cursor: pointer;
+    @include desktopHd {
+      width: calc(100% / 3);
+    }
+    @include tablets {
+      width: 50%;
+    }
     &::after {
       content: '';
       position: absolute;
-      top: -3px;
-      left: -1px;
-      right: -1px;
-      bottom: -3px;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
       border: 3px solid $accent-color;
       opacity: 0;
       z-index: 1;

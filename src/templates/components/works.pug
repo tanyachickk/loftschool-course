@@ -17,11 +17,12 @@ script(type="text/x-template")#slider-display
     .slider-display__current-slide
       img.slider-display__current-image(:src="currentWork.photo")
     .slider-display__thumbs
-      slider-thumbs(
-        :works="visibleWorks"
-        :current-index="currentIndex"
-        @change-slide="goToSlide"
-      )
+      .slider-display__thumbs-list(:style="`transform: translateX(-${offset*100}%)`")
+        slider-thumbs(
+          :works="works"
+          :current-index="currentIndex"
+          @change-slide="goToSlide"
+        )
     .slider-display__buttons
       slider-buttons(
         :is-disabled-prev="currentIndex === 0"

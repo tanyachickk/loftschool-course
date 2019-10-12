@@ -64,9 +64,15 @@ const sliderDisplay = {
       type: Number,
     },
   },
+  watch: {
+    currentIndex(currentIndex, previousIndex) {
+      this.previousIndex = previousIndex;
+    },
+  },
   data() {
     return {
       windowWidth: 0,
+      previousIndex: 0,
     };
   },
   computed: {
@@ -77,7 +83,7 @@ const sliderDisplay = {
       if (this.windowWidth < parseInt(constants['bp-phones'])) {
         return 0;
       }
-      if (this.windowWidth < parseInt(constants['bp-desktop'])) {
+      if (this.windowWidth < parseInt(constants['bp-tablets'])) {
         return 2;
       }
       if (this.windowWidth < parseInt(constants['bp-desktop-hd'])) {
@@ -85,8 +91,17 @@ const sliderDisplay = {
       }
       return 4;
     },
-    visibleWorks() {
-      return this.works.slice(0, this.maxThumbsCount);
+    offset() {
+      if (this.previousIndex < this.currentIndex) {
+        if (this.currentIndex < this.maxThumbsCount) {
+          return 0;
+        }
+        return (this.currentIndex - this.maxThumbsCount + 1) / this.maxThumbsCount;
+      }
+      if (this.currentIndex >= this.works.length - this.maxThumbsCount) {
+        return this.works.length / this.maxThumbsCount - 1;
+      }
+      return this.currentIndex / this.maxThumbsCount;
     },
   },
   methods: {

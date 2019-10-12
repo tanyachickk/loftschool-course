@@ -51,9 +51,18 @@
     right: 10vw;
     bottom: 60px;
     height: 100px;
+    width: 712px;
+    overflow: hidden;
     z-index: 1;
     @include desktopHd {
+      width: 534px;
       bottom: 30px;
+    }
+    @include tablets {
+      width: 356px;
+    }
+    @include phones {
+      display: none;
     }
   }
   &__buttons {
