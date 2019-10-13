@@ -4,9 +4,16 @@
   left: 0;
   right: 0;
   height: 120vh;
+  @include tablets {
+    background-image: url('~images/content/train-bridge.jpg');
+    background-size: cover;
+  }
   &__layer {
     position: absolute;
     will-change: transform;
+    @include tablets {
+      display: none;
+    }
     &_sky {
       top: 0;
       left: 0;
@@ -20,6 +27,7 @@
       height: 55vh;
     }
     &_title {
+      display: block;
       top: 38vh;
       left: 50%;
       margin-left: -215px;
@@ -36,6 +44,7 @@
       }
     }
     &_subtitle {
+      display: block;
       top: 38vh;
       right: 50%;
       margin-right: 275px;
@@ -61,7 +70,7 @@
       top: 40vh;
       height: 48vh;
     }
-    &_ground {
+    &_grass {
       top: 79vh;
       left: 0;
       right: 0;

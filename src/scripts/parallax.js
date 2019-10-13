@@ -1,3 +1,5 @@
+import constants from '../styles/variables.json';
+
 const parallax = document.querySelector('.parallax');
 const layers = parallax.children;
 
@@ -10,6 +12,8 @@ function moveLayersDependsOnScroll(wScroll) {
 }
 
 window.addEventListener('scroll', () => {
-  const wScroll = window.pageYOffset;
-  moveLayersDependsOnScroll(wScroll);
+  if (window.innerWidth > parseInt(constants['bp-tablets']) + 1) {
+    const wScroll = window.pageYOffset;
+    moveLayersDependsOnScroll(wScroll);
+  }
 });
