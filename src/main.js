@@ -3,6 +3,7 @@ if (process.env.NODE_ENV === 'development') {
   require('file-loader!./index.pug');
 }
 
+import './scripts/focus';
 import './scripts/scroll';
 import './scripts/menu';
 import './scripts/skills';
