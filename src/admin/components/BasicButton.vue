@@ -73,7 +73,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 34px 120px;
+  padding: 32px 120px;
   background-image: $primary-gradient;
   color: white;
   font-size: 18px;
@@ -83,7 +83,7 @@ export default {
   cursor: pointer;
   @include phones {
     width: 100%;
-    padding: 0;
+    padding: 24px 50px;
   }
   &:hover {
     background-image: $reverse-gradient;

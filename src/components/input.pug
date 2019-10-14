@@ -1,7 +1,8 @@
 include ../mixins
 
-mixin input(type, label, className, required, icon)
+mixin input(type, label, name, required, icon)
   .input
-    input.input__control(type=type required=required)
+    input.input__control(id=name type=type name=name required=required)
     +icon(icon, 'input__icon')
-    label.input__label #{label}
+    label.input__label(for=name) #{label}
+    .input__error

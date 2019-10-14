@@ -1,15 +1,15 @@
 <template lang="pug">
-  .basic-input(:class="`basic-input_${theme}`")
-    input.basic-input__control(
-      :type="type"
+  .basic-textarea(:class="`basic-textarea_${theme}`")
+    textarea.basic-textarea__control(
+      ref="textarea"
       :value="value"
       :required="required"
       :class="inputClass"
       v-on="listeners"
     )
-    .basic-input__icon(v-if="icon")
+    .basic-textarea__icon(v-if="icon")
       icon(:name="icon")
-    label.basic-input__label {{ label }}
+    label.basic-textarea__label {{ label }}
 </template>
 
 <script>
@@ -44,10 +44,6 @@ export default {
       type: String,
       default: 'dark',
     },
-    type: {
-      type: String,
-      default: 'text',
-    },
   },
   computed: {
     listeners() {
@@ -56,14 +52,16 @@ export default {
         input: (event) => {
           if (!this.disabled) {
             this.$emit('input', event.target.value);
+            this.$refs.textarea.style.height = 'auto';
+            this.$refs.textarea.style.height = `${this.$refs.textarea.scrollHeight}px`;
           }
         },
       };
     },
     inputClass() {
       return {
-        'basic-input__control_dirty': this.value.length,
-        'basic-input__control_disabled': this.disabled,
+        'basic-textarea__control_dirty': this.value.length,
+        'basic-textarea__control_disabled': this.disabled,
       };
     },
   },
@@ -73,7 +71,7 @@ export default {
 <style lang="postcss" scoped>
 @import '../../styles/mixins.pcss';
 
-.basic-input {
+.basic-textarea {
   position: relative;
   width: 100%;
   &__control {
@@ -82,12 +80,15 @@ export default {
     color: $text-color;
     font-size: 18px;
     font-weight: 700;
-    line-height: 56px;
+    min-height: 56px;
+    height: auto;
+    line-height: 36px;
     background: none;
     border: none;
     border-bottom: 1px solid $light-gray;
     outline: none;
     transition: border 0.2s ease;
+    resize: vertical;
     &:focus {
       border-bottom-color: $accent-color;
     }
@@ -96,7 +97,7 @@ export default {
     }
   }
   &_light &__control {
-    color: white;
+    color: white !important;
   }
   &__icon {
     position: absolute;
@@ -117,7 +118,7 @@ export default {
   }
   &__label {
     position: absolute;
-    top: 50%;
+    top: 28px;
     left: 45px;
     bottom: auto;
     color: rgba(65, 76, 99, 0.3);

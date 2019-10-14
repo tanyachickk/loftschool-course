@@ -1,0 +1,41 @@
+include ../../mixins
+
+//- script(type="text/x-template")#button
+//-   button.button(type="type")
+//-     slot
+
+script(type="text/x-template")#feedback-form
+  form.feedback-form(@submit="onFormSumbit")
+    .feedback-form__title Связаться со мной
+    .feedback-form__row
+      .feedback-form__name
+        basic-input(
+          v-model="name"
+          :required="false"
+          label="Введите ваше имя"
+          type="text"
+          name="name"
+          icon="user"
+          theme="light"
+        )
+      .feedback-form__mail
+        basic-input(
+          v-model="email"
+          :required="false"
+          label="Введите ваш email"
+          type="email"
+          name="mail"
+          icon="envelope"
+          theme="light"
+        )
+    .feedback-form__message
+      basic-textarea(
+        v-model="message"
+        :required="false"
+        label="Сообщение к письму"
+        name="message"
+        icon="message"
+        theme="light"
+      )
+    .feedback-form__button
+      basic-button(type='submit') Отправить

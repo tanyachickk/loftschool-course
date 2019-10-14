@@ -13,6 +13,7 @@
       table.skill-group__skills-table
         skill-row(
           v-for="skill in skills"
+          :key="skill.id"
           :title="skill.title"
           :percent="skill.percent"
           @save="$emit('update-skill', { ...skill, ...$event })"
