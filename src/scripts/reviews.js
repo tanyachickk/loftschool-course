@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import flickity from 'vue-flickity';
 import reviews from '../data/reviews.json';
 import constants from '../styles/variables.json';
 
@@ -24,13 +25,19 @@ new Vue({
   el: '#reviews-container',
   template: '#reviews-content',
   components: {
+    flickity,
     review,
   },
   data() {
     return {
-      isMobile: false,
       reviews,
       currentReviewIndex: 0,
+      flickityOptions: {
+        prevNextButtons: false,
+        pageDots: false,
+        resize: true,
+        cellAlign: 'left',
+      },
     };
   },
   computed: {
@@ -40,28 +47,18 @@ new Vue({
         photo: require(`../images/${item.photo}`),
       }));
     },
-    itemWidth() {
-      return this.isMobile ? 100 : 50;
-    },
   },
   methods: {
     goToPrevReview() {
-      this.currentReviewIndex = this.currentReviewIndex > 0 ? this.currentReviewIndex - 1 : this.reviews.length - 2;
+      this.$refs.flickity.previous();
     },
     goToNextReview() {
-      this.currentReviewIndex = this.currentReviewIndex < this.reviews.length - 2 ? this.currentReviewIndex + 1 : 0;
-    },
-    setIsMobile() {
-      this.isMobile = window.innerWidth <= parseInt(constants['bp-tablets']);
+      this.$refs.flickity.next();
     },
   },
   mounted() {
-    this.setIsMobile();
-  },
-  created() {
-    window.addEventListener('resize', this.setIsMobile);
-  },
-  beforeDestroy() {
-    window.removeEventListener('resize', this.setIsMobile);
+    this.$refs.flickity.on('change', (index) => {
+      this.currentReviewIndex = index;
+    });
   },
 });
