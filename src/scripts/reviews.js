@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import flickity from 'vue-flickity';
 import reviews from '../data/reviews.json';
-import constants from '../styles/variables.json';
 
 const review = {
   template: '#review',
@@ -55,10 +54,24 @@ new Vue({
     goToNextReview() {
       this.$refs.flickity.next();
     },
+    setCellHeight() {
+      const slides = this.$refs.flickity.getCellElements();
+      slides.forEach((slide) => (slide.style.height = ''));
+
+      const heights = slides.map((slide) => slide.offsetHeight);
+      const max = Math.max(...heights);
+
+      slides.forEach((slide) => (slide.style.height = max + 'px'));
+    },
   },
   mounted() {
     this.$refs.flickity.on('change', (index) => {
       this.currentReviewIndex = index;
     });
+    this.setCellHeight();
+    window.addEventListener('resize', this.setCellHeight);
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.setCellHeight);
   },
 });
