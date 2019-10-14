@@ -10,6 +10,8 @@
     .basic-textarea__icon(v-if="icon")
       icon(:name="icon")
     label.basic-textarea__label {{ label }}
+    transition(name="slide-up")
+      .basic-textarea__error(v-if="errorMessage") {{ errorMessage }}
 </template>
 
 <script>
@@ -21,6 +23,10 @@ export default {
   },
   props: {
     value: {
+      type: String,
+      default: '',
+    },
+    errorMessage: {
       type: String,
       default: '',
     },
@@ -62,6 +68,7 @@ export default {
       return {
         'basic-textarea__control_dirty': this.value.length,
         'basic-textarea__control_disabled': this.disabled,
+        'basic-textarea__control_invalid': this.errorMessage,
       };
     },
   },
@@ -73,6 +80,7 @@ export default {
 
 .basic-textarea {
   position: relative;
+  line-height: 0;
   width: 100%;
   &__control {
     padding-left: 45px;
@@ -88,9 +96,13 @@ export default {
     border-bottom: 1px solid $light-gray;
     outline: none;
     transition: border 0.2s ease;
-    resize: vertical;
+    resize: none;
     &:focus {
       border-bottom-color: $accent-color;
+    }
+    &_invalid,
+    &_invalid:focus {
+      border-bottom-color: $danger-color;
     }
     @include desktop {
       font-size: 14px;
@@ -116,6 +128,10 @@ export default {
   &__control_dirty ~ &__label {
     fill: $accent-color;
   }
+  &__control_invalid ~ &__icon,
+  &__control_invalid:focus ~ &__icon {
+    fill: $danger-color;
+  }
   &__label {
     position: absolute;
     top: 28px;
@@ -138,6 +154,48 @@ export default {
   &__control:focus ~ &__label,
   &__control_dirty ~ &__label {
     transform: translateY(-200%);
+  }
+  &__error {
+    position: absolute;
+    top: 100%;
+    left: 45px;
+    padding: 0 20px;
+    color: white;
+    background-color: $danger-color;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 48px;
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      border: 3px solid $danger-color;
+      border-left-width: 5px;
+      border-right-width: 5px;
+    }
+    &::before {
+      border-top-color: transparent;
+      border-left-color: transparent;
+      transform: translateX(-100%);
+    }
+    &::after {
+      border-top-color: transparent;
+      border-right-color: transparent;
+    }
+  }
+}
+
+.slide-up {
+  &-enter-to,
+  &-leave {
+    transition: all 0.3s ease;
+  }
+  &-enter,
+  &-leave-to {
+    transform: translateY(50%);
+    opacity: 0;
   }
 }
 </style>

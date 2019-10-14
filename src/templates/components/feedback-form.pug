@@ -12,6 +12,7 @@ script(type="text/x-template")#feedback-form
         basic-input(
           v-model="name"
           :required="false"
+          :error-message="errors.name"
           label="Введите ваше имя"
           type="text"
           name="name"
@@ -22,6 +23,7 @@ script(type="text/x-template")#feedback-form
         basic-input(
           v-model="email"
           :required="false"
+          :error-message="errors.email"
           label="Введите ваш email"
           type="email"
           name="mail"
@@ -32,6 +34,7 @@ script(type="text/x-template")#feedback-form
       basic-textarea(
         v-model="message"
         :required="false"
+        :error-message="errors.message"
         label="Сообщение к письму"
         name="message"
         icon="message"
