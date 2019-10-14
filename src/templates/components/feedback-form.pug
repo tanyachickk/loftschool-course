@@ -42,3 +42,7 @@ script(type="text/x-template")#feedback-form
       )
     .feedback-form__button
       basic-button(type='submit') Отправить
+    alert-modal(
+      v-if="isShowAlert"
+      @close="hideModal"
+    ) Письмо отправлено

@@ -3,6 +3,7 @@ import SimpleVueValidation from 'simple-vue-validator';
 import basicInput from '@/admin/components/BasicInput.vue';
 import basicTextarea from '@/admin/components/BasicTextarea.vue';
 import basicButton from '@/admin/components/BasicButton.vue';
+import alertModal from '@/admin/components/AlertModal.vue';
 
 Vue.use(SimpleVueValidation);
 const Validator = SimpleVueValidation.Validator;
@@ -14,6 +15,7 @@ new Vue({
     basicInput,
     basicTextarea,
     basicButton,
+    alertModal,
   },
   mixins: [SimpleVueValidation.mixin],
   validators: {
@@ -36,6 +38,7 @@ new Vue({
       name: '',
       email: '',
       message: '',
+      isShowAlert: false,
     };
   },
   computed: {
@@ -58,10 +61,18 @@ new Vue({
       event.preventDefault();
       this.$validate().then((success) => {
         if (success) {
-          alert('Validation succeeded!');
+          this.showModal();
           this.resetForm();
         }
       });
+    },
+    showModal() {
+      document.body.style.overflow = 'hidden';
+      this.isShowAlert = true;
+    },
+    hideModal() {
+      document.body.style.overflow = 'auto';
+      this.isShowAlert = false;
     },
   },
 });

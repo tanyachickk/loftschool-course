@@ -20,7 +20,7 @@
           :required="true"
         )
       .login-form__button
-        basic-button ОТПРАВИТЬ
+        basic-button(type="submit") ОТПРАВИТЬ
 </template>
 
 <script>

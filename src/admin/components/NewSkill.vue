@@ -16,7 +16,7 @@
     .new-skill__button
       basic-button(
         icon="plus"
-        type="flat"
+        display="flat"
         :disabled="isDisabled"
         :circle="true"
         @click="createSkill"

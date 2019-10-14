@@ -1,6 +1,7 @@
 <template lang="pug">
    button.basic-button(
      :class="buttonClass"
+     :type="type"
      v-on="listerers"
     )
     .basic-button__icon-wrapper(v-if="icon")
@@ -22,8 +23,12 @@ export default {
       default: 'primary',
     },
     type: {
+      type: String,
+      default: 'button',
+    },
+    display: {
       type: 'filled' | 'border' | 'flat',
-      defsult: 'filled',
+      default: 'filled',
     },
     size: {
       type: 'large' | 'default' | 'small',
@@ -58,7 +63,7 @@ export default {
         'basic-button_circle': this.circle,
         'basic-button_disabled': this.disabled,
         [`basic-button_${this.size}`]: true,
-        [`basic-button_${this.type}`]: true,
+        [`basic-button_${this.display}`]: true,
         [`basic-button_${this.theme}`]: true,
       };
     },

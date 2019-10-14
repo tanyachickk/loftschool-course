@@ -6,7 +6,7 @@
         basic-button(
           size="small"
           icon="plus"
-          type="flat"
+          display="flat"
           :circle="true"
           @click="showNewSkill"
         ) Добавить группу
