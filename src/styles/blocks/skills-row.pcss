@@ -29,7 +29,10 @@
     }
 
     @include phones {
-      margin: 0 15px 25px;
+      &:not(:last-child) {
+        margin-right: 13px;
+      }
+      margin: 0 13px 25px;
     }
   }
 }
