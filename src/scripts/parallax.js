@@ -22,17 +22,13 @@ window.addEventListener('scroll', () => {
 
   const isMainParallax = window.innerHeight > wScroll;
   if (isMainParallax) {
-    console.log('isMainParallax');
     moveLayersDependsOnScroll(mainLayers, wScroll);
     return;
   }
 
   const { top } = leavesParallax.getBoundingClientRect();
   const leavesParallaxOffset = window.innerHeight - top;
-  const isLeavesParallax = leavesParallaxOffset > 0;
-  if (isLeavesParallax) {
-    console.log('isLeavesParallax', wScroll, top);
-
+  if (leavesParallaxOffset > 0) {
     moveLayersDependsOnScroll(leaves, leavesParallaxOffset);
     return;
   }

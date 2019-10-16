@@ -8,8 +8,8 @@ mixin image(path, className)
 
 mixin picture(name, ext, mobile)
   picture
-    source(media="(min-width: 1200px)" type="image/webp" srcset=require(`images/content/${name}@2x.webp`) + ' 1x, ' + require(`images/content/${name}@3x.webp`) + ' 2x')
+    source(media="(min-width: 1200px)" type="image/webp" srcset=require(`images/content/${name}@2x.webp`))
     source(media="(min-width: 769px)" type="image/webp" srcset=require(`images/content/${name}.webp`) + ' 1x, ' + require(`images/content/${name}@2x.webp`) + ' 2x')
-    source(media="(min-width: 1200px)" srcset=require(`images/content/${name}@2x.${ext}`) + ' 1x, ' + require(`images/content/${name}@3x.${ext}`) + ' 2x')
+    source(media="(min-width: 1200px)" srcset=require(`images/content/${name}@2x.${ext}`))
     source(media="(min-width: 769px)" srcset=require(`images/content/${name}.${ext}`) + ' 1x, ' + require(`images/content/${name}@2x.${ext}`) + ' 2x')
     img.parallax__image(src=require(`images/content/${name}.${ext}`))
