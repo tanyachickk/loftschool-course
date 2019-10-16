@@ -30,16 +30,20 @@ new Vue({
   data() {
     return {
       reviews,
-      currentReviewIndex: 0,
+      currentSlideIndex: 0,
       flickityOptions: {
         prevNextButtons: false,
         pageDots: false,
         resize: true,
+        groupCells: window.innerWidth > 768 ? 2 : 1,
         cellAlign: 'left',
       },
     };
   },
   computed: {
+    slidesLength() {
+      return Math.ceil(this.reviews.length / this.flickityOptions.groupCells);
+    },
     reviewsWithRequiredImages() {
       return this.reviews.map((item) => ({
         ...item,
@@ -63,15 +67,19 @@ new Vue({
 
       slides.forEach((slide) => (slide.style.height = max + 'px'));
     },
+    onResize() {
+      this.flickityOptions.groupCells = window.innerWidth > 768 ? 2 : 1;
+      this.setCellHeight();
+    },
   },
   mounted() {
-    this.$refs.flickity.on('change', (index) => {
-      this.currentReviewIndex = index;
+    this.$refs.flickity.on('change', () => {
+      this.currentSlideIndex = this.$refs.flickity.selectedIndex();
     });
     this.setCellHeight();
-    window.addEventListener('resize', this.setCellHeight);
+    window.addEventListener('resize', this.onResize);
   },
   beforeDestroy() {
-    window.removeEventListener('resize', this.setCellHeight);
+    window.removeEventListener('resize', this.onResize);
   },
 });

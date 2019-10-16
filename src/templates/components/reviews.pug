@@ -5,9 +5,9 @@ script(type="text/x-template")#reviews-content
     .reviews__header
       .reviews__title Что обо мне говорят
       .reviews__controls
-        .reviews__prev-button(:class="{ 'reviews__prev-button_disabled': currentReviewIndex === 0 }" @click="goToPrevReview")
+        .reviews__prev-button(:class="{ 'reviews__prev-button_disabled': currentSlideIndex === 0 }" @click="goToPrevReview")
           +arrow-button('prev', 'circle', 'transparent')
-        .reviews__next-button(:class="{ 'reviews__next-button_disabled': currentReviewIndex === reviews.length - 1 }" @click="goToNextReview")
+        .reviews__next-button(:class="{ 'reviews__next-button_disabled': currentSlideIndex === slidesLength - 1 }" @click="goToNextReview")
           +arrow-button('next', 'circle', 'transparent')
     .reviews__body
       flickity.reviews__list(ref="flickity" :options="flickityOptions")
