@@ -1,7 +1,7 @@
 include ../mixins
 
 .parallax
-  - var layers = [['sky', 'jpg', 15], ['mountains', 'png', 12]]
+  - var layers = [['sky', 'jpg', 0], ['mountains', 'png', 11]]
   each layer in layers
     .parallax__layer(data-speed=layer[2] class=`parallax__layer_${layer[0]}`)
       +picture(layer[0], layer[1], '')
@@ -9,7 +9,7 @@ include ../mixins
     include main-title
   .parallax__layer.parallax__layer_subtitle(data-speed="9")
     include main-subtitle
-  - var layers = [['train', 'png', 6], ['grass', 'png', 3]]
+  - var layers = [['train', 'png', 7], ['grass', 'png', 3]]
   each layer in layers
     .parallax__layer(data-speed=layer[2] class=`parallax__layer_${layer[0]}`)
       +picture(layer[0], layer[1], '')

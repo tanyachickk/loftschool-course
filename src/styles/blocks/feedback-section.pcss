@@ -2,9 +2,14 @@
   position: relative;
   width: 100%;
   padding: 140px 160px 160px;
-  background-image: url('~images/content/autumn.png');
-  background-size: cover;
-  background-position: 0 0;
+
+  &__parallax {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
 
   @include desktopHd {
     padding: 140px 63px 160px;
@@ -14,17 +19,6 @@
   }
   @include tablets {
     padding: 100px 32px 110px;
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: 1375px;
-    background-image: linear-gradient(to right, #1c2024 0%, #1c2023 42%, rgba(27, 31, 34, 0) 100%);
-    opacity: 0.9;
   }
   &__reviews {
     margin-bottom: 50px;
@@ -41,37 +35,6 @@
     }
     @include tablets {
       padding-top: 100px;
-    }
-  }
-  &__leaf {
-    position: absolute;
-    z-index: 1;
-    @include phones {
-      display: none;
-    }
-    &:nth-child(1) {
-      bottom: 12%;
-      right: 12%;
-      width: 412px;
-      height: 248px;
-    }
-    &:nth-child(2) {
-      top: 50%;
-      right: 15%;
-      width: 109px;
-      height: 84px;
-    }
-    &:nth-child(3) {
-      top: 33%;
-      right: 30%;
-      width: 132px;
-      height: 140px;
-    }
-    &:nth-child(4) {
-      top: -12%;
-      left: 78%;
-      width: 616px;
-      height: 442px;
     }
   }
 }

@@ -1,6 +1,6 @@
 section#reviews.feedback-section
-  each index in [1, 2, 3, 4]
-    +image(`content/leaf${index}.png`, 'feedback-section__leaf')
+  .feedback-section__parallax
+    include leaves-parallax
   .feedback-section__content
     .feedback-section__reviews
       #reviews-container
