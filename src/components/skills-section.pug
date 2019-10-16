@@ -4,4 +4,7 @@ section#skills.skills-section
   .skills-section__widgets
     #skills-container
   .skills-section__image
-    +image('content/hands.png')
+    picture
+      source(media="(min-width: 769px)" srcset=require("images/content/hands.png"))
+      img(src=require("images/content/hands-mobile.png"))
+    
