@@ -22,10 +22,10 @@
             size="small"
             display="flat"
           ) Отмена
-          basic-button.new-review__button(
+          basic-button.new-review__button.new-review__button_save(
             size="small"
             :bordered="true"
-          ) Отправить
+          ) Сохранить
 </template>
 
 <script>
@@ -81,6 +81,10 @@ export default {
 
   &__text {
     grid-column: 2 / 4;
+  }
+
+  &__button_save {
+    text-transform: uppercase;
   }
 
   &__controls {
