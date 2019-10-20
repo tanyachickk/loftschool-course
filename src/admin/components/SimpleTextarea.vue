@@ -1,20 +1,16 @@
 <template lang="pug">
-  .simple-input(
+  .simple-textarea(
     :class="{ 'simple-input_disabled': disabled }"
   )
-    .simple-input__label(v-if="label") {{ label }}
-    input.simple-input__control(
-      :type="type"
+    .simple-textarea__label(v-if="label") {{ label }}
+    textarea.simple-textarea__control(
+      ref="textarea"
       :value="value"
-      :min="minValue"
-      :max="maxValue"
-      :step="step"
       :readonly="readonly"
       :placeholder="placeholder"
       :class="inputClass"
       v-on="listeners"
     )
-    .simple-input__measure(v-if="measure") {{ measure }}
 </template>
 
 <script>
@@ -28,18 +24,6 @@ export default {
       type: String,
       default: '',
     },
-    maxValue: {
-      type: Number,
-      default: 100,
-    },
-    minValue: {
-      type: Number,
-      default: 0,
-    },
-    step: {
-      type: Number,
-      default: 1,
-    },
     placeholder: {
       type: String,
       default: '',
@@ -48,9 +32,9 @@ export default {
       type: Boolean,
       default: false,
     },
-    type: {
-      type: String,
-      default: 'text',
+    maxHeight: {
+      type: Number,
+      default: 120,
     },
     size: {
       type: String,
@@ -60,10 +44,6 @@ export default {
       type: Boolean,
       default: false,
     },
-    measure: {
-      type: String,
-      default: '',
-    },
   },
   computed: {
     listeners() {
@@ -72,6 +52,10 @@ export default {
         input: (event) => {
           if (!this.disabled) {
             this.$emit('input', event.target.value);
+            this.$refs.textarea.style.height = 'auto';
+            const scrollHeight =
+              this.$refs.textarea.scrollHeight > this.maxHeight ? this.maxHeight : this.$refs.textarea.scrollHeight;
+            this.$refs.textarea.style.height = `${scrollHeight}px`;
           }
         },
       };
@@ -88,7 +72,7 @@ export default {
 <style lang="postcss" scoped>
 @import '../../styles/mixins.pcss';
 
-.simple-input {
+.simple-textarea {
   position: relative;
   width: 100%;
   &__control {
@@ -96,15 +80,15 @@ export default {
     color: $text-color;
     font-size: 16px;
     font-weight: inherit;
-    line-height: 42px;
+    line-height: 1.5;
+    padding: 20px;
     background: none;
-    border: none;
-    border-bottom: 1px solid $text-color;
+    border: 1px solid rgba($text-color, 0.2);
     outline: none;
     transition: border 0.2s ease;
 
     &:focus {
-      border-bottom-color: $accent-color;
+      border-color: $accent-color;
     }
     &:read-only {
       border-color: transparent;
@@ -123,18 +107,6 @@ export default {
       }
     }
   }
-
-  &__label {
-    color: rgba($text-color, 0.5);
-    margin-bottom: 8px;
-  }
-
-  &__measure {
-    position: absolute;
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%);
-  }
   &_disabled {
     &::after {
       content: '';
@@ -145,6 +117,11 @@ export default {
       bottom: 0;
       background-color: rgba(white, 0.8);
     }
+  }
+
+  &__label {
+    color: rgba($text-color, 0.5);
+    margin-bottom: 20px;
   }
 }
 </style>

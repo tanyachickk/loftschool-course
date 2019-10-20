@@ -5,23 +5,24 @@
     .works-page__form
       new-work-form
     .works-page__grid
-      add-work-button.works-page__item
+      card-gradient-button.works-page__item Добавить #[br] работу
       work-item.works-page__item(
         v-for="i in 10"
+        :key="i"
       )
 </template>
 
 <script>
 import PageTitle from '@/admin/components/PageTitle.vue';
 import NewWorkForm from '@/admin/components/NewWorkForm.vue';
-import AddWorkButton from '@/admin/components/AddWorkButton.vue';
+import CardGradientButton from '@/admin/components/CardGradientButton.vue';
 import WorkItem from '@/admin/components/WorkItem.vue';
 
 export default {
   components: {
     PageTitle,
     NewWorkForm,
-    AddWorkButton,
+    CardGradientButton,
     WorkItem,
   },
 };
@@ -59,10 +60,11 @@ export default {
     grid-gap: 32px;
 
     @include desktop {
+      grid-template-columns: 1fr 1fr;
       grid-gap: 20px;
     }
 
-    @include tablets {
+    @include phones {
       grid-template-columns: 1fr;
     }
   }

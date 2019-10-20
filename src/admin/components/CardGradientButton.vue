@@ -1,7 +1,8 @@
 <template lang="pug">
-  button.add-work(:class="{ 'add-work_disabled': isDisabled }")
-    .add-work__icon
-    .add-work__text Добавить #[br] работу
+  button.card-button(:class="{ 'add-work_disabled': isDisabled }")
+    .card-button__icon
+    .card-button__text
+      slot
 </template>
 
 <script>
@@ -18,7 +19,7 @@ export default {
 <style lang="postcss" scoped>
 @import '../../styles/mixins.pcss';
 
-.add-work {
+.card-button {
   position: relative;
   display: flex;
   flex-direction: column;

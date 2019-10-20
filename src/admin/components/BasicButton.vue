@@ -38,6 +38,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    bordered: {
+      type: Boolean,
+      default: false,
+    },
     circle: {
       type: Boolean,
       default: false,
@@ -62,6 +66,7 @@ export default {
       return {
         'basic-button_circle': this.circle,
         'basic-button_disabled': this.disabled,
+        'basic-button_bordered': this.bordered,
         [`basic-button_${this.size}`]: true,
         [`basic-button_${this.display}`]: true,
         [`basic-button_${this.theme}`]: true,
@@ -94,12 +99,25 @@ export default {
     background-image: $reverse-gradient;
   }
 
+  &_flat {
+    background-image: none;
+    &:hover {
+      background-image: none;
+      opacity: 0.6;
+    }
+  }
+
   &_small {
     font-size: 16px;
+    padding: 21px 40px;
   }
 
   &_small &__text {
     padding: 0 13px;
+  }
+
+  &_small&_bordered {
+    border-radius: 30px;
   }
 
   &_primary&_flat &__text {
