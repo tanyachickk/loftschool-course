@@ -4,6 +4,7 @@
     template(slot="content")
       form.new-review__form
         .new-review__photo
+          avatar-upload
         .new-review__name
           simple-input(
             label="Имя автора"
@@ -32,6 +33,7 @@ import Card from 'components/Card.vue';
 import SimpleInput from 'components/SimpleInput.vue';
 import SimpleTextarea from 'components/SimpleTextarea.vue';
 import BasicButton from 'components/BasicButton.vue';
+import AvatarUpload from 'components/AvatarUpload.vue';
 
 export default {
   components: {
@@ -39,6 +41,7 @@ export default {
     SimpleInput,
     SimpleTextarea,
     BasicButton,
+    AvatarUpload,
   },
   data() {
     return {};
@@ -52,6 +55,7 @@ export default {
 
 .new-review {
   &__header {
+    font-size: 18px;
     padding: 10px;
   }
   &__form {

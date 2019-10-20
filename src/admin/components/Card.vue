@@ -21,6 +21,7 @@
     margin-bottom: 0;
     padding-bottom: 14px;
     border-bottom: 1px solid rgba(31, 35, 45, 0.15);
+    font-size: inherit;
     font-weight: 700;
   }
 
