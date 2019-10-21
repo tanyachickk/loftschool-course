@@ -14,8 +14,8 @@ script(type="text/x-template")#slider-container
 
 script(type="text/x-template")#slider-display
   .slider-display(:data-index="currentIndex + 1")
-    .slider-display__current-slide
-      img.slider-display__current-image(:src="currentWork.photo")
+    transition-group.slider-display__current-slide(name="fade" tag="div")
+      img.slider-display__current-image(:src="currentWork.photo" :key="currentWork.id")
     .slider-display__thumbs
       .slider-display__thumbs-list(:style="`transform: translateX(-${offset*100/maxThumbsCount}%)`")
         slider-thumbs(
