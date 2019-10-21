@@ -17,7 +17,7 @@ script(type="text/x-template")#slider-display
     .slider-display__current-slide
       img.slider-display__current-image(:src="currentWork.photo")
     .slider-display__thumbs
-      .slider-display__thumbs-list(:style="`transform: translateX(-${offset*100}%)`")
+      .slider-display__thumbs-list(:style="`transform: translateX(-${offset*100/maxThumbsCount}%)`")
         slider-thumbs(
           :works="works"
           :current-index="currentIndex"

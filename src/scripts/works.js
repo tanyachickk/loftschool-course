@@ -65,20 +65,21 @@ const sliderDisplay = {
     },
   },
   watch: {
-    currentIndex(currentIndex, previousIndex) {
-      this.previousIndex = previousIndex;
+    currentIndex(currentIndex) {
+      if (currentIndex < this.offset) {
+        this.offset = currentIndex;
+      } else if (currentIndex > this.offset + this.maxThumbsCount - 1) {
+        this.offset = currentIndex - this.maxThumbsCount + 1;
+      }
     },
   },
   data() {
     return {
       windowWidth: 0,
-      previousIndex: 0,
+      offset: 0,
     };
   },
   computed: {
-    thumbs() {
-      return this.works.filter((work) => work !== this.currentWork);
-    },
     maxThumbsCount() {
       if (this.windowWidth < parseInt(constants['bp-phones'])) {
         return 0;
@@ -90,18 +91,6 @@ const sliderDisplay = {
         return 3;
       }
       return 4;
-    },
-    offset() {
-      if (this.previousIndex < this.currentIndex) {
-        if (this.currentIndex < this.maxThumbsCount) {
-          return 0;
-        }
-        return (this.currentIndex - this.maxThumbsCount + 1) / this.maxThumbsCount;
-      }
-      if (this.currentIndex >= this.works.length - this.maxThumbsCount) {
-        return this.works.length / this.maxThumbsCount - 1;
-      }
-      return this.currentIndex / this.maxThumbsCount;
     },
   },
   methods: {
