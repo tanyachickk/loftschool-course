@@ -2,6 +2,7 @@
    button.basic-button(
      :class="buttonClass"
      :type="type"
+     :disabled="disabled"
      v-on="listerers"
     )
     .basic-button__icon-wrapper(v-if="icon")
@@ -80,6 +81,7 @@ export default {
 @import '../../styles/mixins.pcss';
 
 .basic-button {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -97,6 +99,22 @@ export default {
   }
   &:hover {
     background-image: $reverse-gradient;
+  }
+
+  &_disabled {
+    cursor: default;
+    &:hover {
+      background-image: $primary-gradient;
+    }
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(white, 0.3);
+    }
   }
 
   &_flat {

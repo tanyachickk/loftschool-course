@@ -1,6 +1,6 @@
 <template lang="pug">
-  transition(appear name="modal")
-    .alert-modal(@click.self="$emit('close')")
+  .alert-modal(@click.self="$emit('close')")
+    transition(name="slide-up" appear)
       .alert-modal__form
         .alert-modal__text
           slot
@@ -14,12 +14,6 @@ import BasicButton from '@/admin/components/BasicButton.vue';
 export default {
   components: {
     BasicButton,
-  },
-  props: {
-    show: {
-      type: Boolean,
-      default: false,
-    },
   },
 };
 </script>
@@ -70,8 +64,8 @@ export default {
 }
 
 .slide-up {
-  &-enter-to,
-  &-leave {
+  &-enter-active,
+  &-leave-active {
     transition: all 0.3s ease;
   }
   &-enter,

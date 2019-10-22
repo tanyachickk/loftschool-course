@@ -155,6 +155,7 @@ export default {
   }
   &__error {
     position: absolute;
+    z-index: 1;
     top: 100%;
     left: 45px;
     padding: 0 20px;

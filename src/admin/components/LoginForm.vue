@@ -1,26 +1,28 @@
 <template lang="pug">
-  .login-form
-    .login-form__title Авторизация
-    button.login-form__close(@click="exitFromAdmin")
-      icon(name="remove")
-    form.login-form__body(@submit.prevent="signIn")
-      .login-form__control
-        basic-input(
-          v-model="name"
-          icon="user"
-          label="Логин"
-          :required="true"
-        )
-      .login-form__control
-        basic-input(
-          v-model="password"
-          icon="key"
-          label="Пароль"
-          type="password"
-          :required="true"
-        )
-      .login-form__button
-        basic-button(type="submit") ОТПРАВИТЬ
+  transition(name="slide-up" appear)
+    .login-form
+      .login-form__title Авторизация
+      button.login-form__close(@click="exitFromAdmin")
+        icon(name="remove")
+      form.login-form__body(@submit.prevent="signIn")
+        .login-form__control
+          basic-input(
+            v-model="name"
+            icon="user"
+            label="Логин"
+          )
+        .login-form__control
+          basic-input(
+            v-model="password"
+            icon="key"
+            label="Пароль"
+            type="password"
+          )
+        .login-form__button
+          basic-button(
+            type="submit"
+            :disabled="isLoading || !name.length || password.length < 4"
+          ) ОТПРАВИТЬ
 </template>
 
 <script>
@@ -39,13 +41,21 @@ export default {
     return {
       name: '',
       password: '',
+      isLoading: false,
     };
   },
   methods: {
     ...mapActions('user', ['login']),
     async signIn() {
-      await this.login({ name: this.name, password: this.password });
-      this.$router.replace('/');
+      this.isLoading = true;
+      try {
+        await this.login({ name: this.name, password: this.password });
+        this.$router.replace('/');
+      } catch (error) {
+        alert(error.message);
+        this.password = '';
+      }
+      this.isLoading = false;
     },
     exitFromAdmin() {
       location.href = 'https://tanyachickk.github.io/loftschool-course';
@@ -55,14 +65,23 @@ export default {
 </script>
 
 <style lang="postcss" scoped>
+@import '../../styles/mixins.pcss';
+
 .login-form {
   position: relative;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  width: 563px;
+  max-width: 563px;
+  width: 100vw;
   padding: 60px 78px;
   background-color: white;
+
+  @include phones {
+    height: 100vh;
+    padding: 30px;
+  }
 
   &__close {
     position: absolute;
@@ -80,10 +99,20 @@ export default {
     }
   }
 
+  &__body {
+    @include phones {
+      align-self: stretch;
+    }
+  }
+
   &__title {
     color: $text-color;
     font-size: 36px;
     font-weight: 700;
+
+    @include phones {
+      font-size: 30px;
+    }
   }
 
   &__control {
@@ -92,6 +121,18 @@ export default {
 
   &__button {
     margin-top: 40px;
+  }
+}
+
+.slide-up {
+  &-enter-to,
+  &-leave {
+    transition: all 0.3s ease;
+  }
+  &-enter,
+  &-leave-to {
+    transform: translateY(50%);
+    opacity: 0;
   }
 }
 </style>
