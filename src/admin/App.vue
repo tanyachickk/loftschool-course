@@ -1,9 +1,17 @@
 <template lang="pug">
-  router-view
+  #app
+    router-view
+    custom-notify(group="success-notify")
+    custom-notify(group="error-notify")
 </template>
 
 <script>
-export default {};
+import CustomNotify from './components/CustomNotify.vue';
+export default {
+  components: {
+    CustomNotify,
+  },
+};
 </script>
 
 <style lang="postcss">

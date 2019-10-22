@@ -52,7 +52,7 @@ export default {
         await this.login({ name: this.name, password: this.password });
         this.$router.replace('/');
       } catch (error) {
-        alert(error.message);
+        this.$notify({ group: 'error-notify', title: error.message });
         this.password = '';
       }
       this.isLoading = false;
@@ -133,6 +133,12 @@ export default {
   &-leave-to {
     transform: translateY(50%);
     opacity: 0;
+  }
+  @include phones {
+    &-enter-to,
+    &-leave {
+      transition: none;
+    }
   }
 }
 </style>

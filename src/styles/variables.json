@@ -8,6 +8,8 @@
   "extra-light-gray": "#f0f0f0",
   "danger-color": "#bf2929",
   "success-color": "#00d70a",
+  "success-notify": "#4bb133",
+  "error-notify": "#b13333",
   "placeholder-color": "#dee4ed",
   "primary-gradient": "linear-gradient(to right, #ea7400 0%, #f29400 100%)",
   "reverse-gradient": "linear-gradient(to right, #ff7f00 0%, #ff9d00 100%)",
