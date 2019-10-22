@@ -16,18 +16,11 @@ export default {
 
 <style lang="postcss" scoped>
 .login-page {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: rgb(45, 60, 78, 0.9);
-
-  &__form {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
 }
 </style>

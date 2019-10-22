@@ -90,6 +90,7 @@ export default {
     font-size: 18px;
     font-weight: 700;
     line-height: 56px;
+    border-radius: 0;
     background: none;
     border: none;
     border-bottom: 1px solid $light-gray;
