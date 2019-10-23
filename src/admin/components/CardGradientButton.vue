@@ -1,5 +1,8 @@
 <template lang="pug">
-  button.card-button(:class="{ 'add-work_disabled': isDisabled }")
+  button.card-button(
+    :class="{ 'add-work_disabled': isDisabled }"
+    v-on="$listeners"
+  )
     .card-button__icon
     .card-button__text
       slot

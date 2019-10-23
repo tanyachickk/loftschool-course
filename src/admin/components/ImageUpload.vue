@@ -23,6 +23,10 @@ export default {
       type: File,
       default: null,
     },
+    maxSize: {
+      type: Number,
+      default: 1500,
+    },
   },
   data() {
     return {};

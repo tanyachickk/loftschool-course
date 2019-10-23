@@ -2,10 +2,15 @@
   .works-page
     .works-page__title
       page-title
-    .works-page__form
-      new-work-form
+    .works-page__form(v-if="isShowForm")
+      work-form(
+        :current-work="currentWork"
+        @reset="cancelWorkChanges"
+      )
     .works-page__grid
-      card-gradient-button.works-page__item Добавить #[br] работу
+      card-gradient-button.works-page__item(
+        @click="addWork"
+      ) Добавить #[br] работу
       work-item.works-page__item(
         v-for="i in 10"
         :key="i"
@@ -14,16 +19,32 @@
 
 <script>
 import PageTitle from '@/admin/components/PageTitle.vue';
-import NewWorkForm from '@/admin/components/NewWorkForm.vue';
+import WorkForm from '@/admin/components/WorkForm.vue';
 import CardGradientButton from '@/admin/components/CardGradientButton.vue';
 import WorkItem from '@/admin/components/WorkItem.vue';
 
 export default {
   components: {
     PageTitle,
-    NewWorkForm,
+    WorkForm,
     CardGradientButton,
     WorkItem,
+  },
+  data() {
+    return {
+      isShowForm: false,
+      currentWork: null,
+    };
+  },
+  methods: {
+    addWork() {
+      this.currentWork = null;
+      this.isShowForm = true;
+    },
+    cancelWorkChanges() {
+      this.currentWork = null;
+      this.isShowForm = false;
+    },
   },
 };
 </script>
@@ -64,7 +85,7 @@ export default {
       grid-gap: 20px;
     }
 
-    @include phones {
+    @include tablets {
       grid-template-columns: 1fr;
     }
   }
