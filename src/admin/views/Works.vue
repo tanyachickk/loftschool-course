@@ -14,6 +14,7 @@
       work-item.works-page__item(
         v-for="i in 10"
         :key="i"
+        @edit="editWork"
       )
 </template>
 
@@ -43,6 +44,10 @@ export default {
     },
     cancelWorkChanges() {
       this.currentWork = null;
+      this.isShowForm = false;
+    },
+    editWork(work) {
+      this.currentWork = work;
       this.isShowForm = false;
     },
   },

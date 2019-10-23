@@ -1,6 +1,6 @@
 <template lang="pug">
   .tags
-    .tags__item(v-for="(tag, i) in tags" :key="tag")
+    .tags__item(v-for="(tag, i) in tags" :key="i")
       tag(:is-readonly="isReadonly" :color="color" @remove="$emit('remove', i)") {{ tag }}
 </template>
 
