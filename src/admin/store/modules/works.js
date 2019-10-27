@@ -41,12 +41,14 @@ export default {
         generateStdError(error);
       }
     },
-    async removeWork({ commit }, workId) {
+    async removeWork({ state, commit }, workId) {
+      const work = state.works.find((item) => item.id === workId);
       try {
-        const response = await this.$axios.delete(`/works/${workId}`);
         commit('REMOVE_WORK', workId);
+        const response = await this.$axios.delete(`/works/${workId}`);
         return response;
       } catch (error) {
+        commit('ADD_WORK', work);
         generateStdError(error);
       }
     },

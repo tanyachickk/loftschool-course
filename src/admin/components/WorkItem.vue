@@ -1,13 +1,13 @@
 <template lang="pug">
   card.work-item(:class="{ 'work-item_active': isActive }")
     .work-item__preview(slot="media")
-      img.work-item__image(:src="require('../../images/content/1.jpg')")
+      img.work-item__image(:src="imageSrc")
       .work-item__tags
-        tags(:tags="['html', 'css', 'js']")
+        tags(:tags="tags")
     .work-item__content(slot="content")
-      .work-item__title Сайт школы образования
-      .work-item__text Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!
-      a.work-item__link(href="http://loftschool.ru" target="_blank") http://loftschool.ru
+      .work-item__title {{ work.title }}
+      .work-item__text {{ work.description }}
+      a.work-item__link(:href="work.link" target="_blank") {{ work.link }}
       .work-item__controls
         button.work-item__button.work-item__button_edit(@click="$emit('edit')")
           .work-item__button-text Править
@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import { getAbsoluteImgPath } from '@/admin/helpers/pictures';
 import Card from 'components/Card.vue';
 import Tags from 'components/Tags.vue';
 import Icon from 'components/Icon.vue';
@@ -29,15 +30,23 @@ export default {
     Icon,
   },
   props: {
+    work: {
+      type: Object,
+      default: () => ({}),
+    },
     isActive: {
       type: Boolean,
       default: false,
     },
   },
-  data() {
-    return {};
+  computed: {
+    tags() {
+      return this.work.techs.split(',');
+    },
+    imageSrc() {
+      return getAbsoluteImgPath(this.work.photo);
+    },
   },
-  methods: {},
 };
 </script>
 

@@ -141,9 +141,12 @@ export default {
       }
     },
   },
-  created() {
-    this.fetchSkills();
-    this.fetchCategories();
+  async created() {
+    try {
+      await Promise.all([this.fetchSkills(), this.fetchCategories()]);
+    } catch (e) {
+      this.showTooltip({ type: 'error', text: 'Произошла ошибка при загрузке данных', duration: 3000 });
+    }
   },
 };
 </script>

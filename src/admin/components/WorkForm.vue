@@ -2,29 +2,36 @@
   card.new-work
     .new-work__header(slot="title") {{ title }}
     template(slot="content")
-      form.new-work__form
+      form.new-work__form(@submit.prevent="onSubmit")
         .new-work__photo
-          image-upload
+          image-upload(
+            v-model="workData.photo"
+            :error-message="validation.firstError('workData.photo')"
+          )
         .new-work__info
           .new-work__form-control.new-work__form-control_title
             simple-input(
               label="Название"
               v-model="workData.title"
+              :error-message="validation.firstError('workData.title')"
             )
           .new-work__form-control.new-work__form-control_link
             simple-input(
               label="Ссылка"
               v-model="workData.link"
+              :error-message="validation.firstError('workData.link')"
             )
           .new-work__form-control.new-work__form-control_description
             simple-textarea(
               label="Описание"
               v-model="workData.description"
+              :error-message="validation.firstError('workData.description')"
             )
           .new-work__form-control.new-work__form-control_tags
             tags-input(
               label="Добавление тэга"
               v-model="workData.techs"
+              :error-message="validation.firstError('workData.techs')"
             )
           .new-work__controls
             basic-button.new-work__button(
@@ -33,18 +40,28 @@
               @click="$emit('reset')"
             ) Отмена
             basic-button.new-work__button.new-work__button_save(
+              type="submit"
               size="small"
               :bordered="true"
             ) Отправить
 </template>
 
 <script>
+import SimpleVueValidation, { Validator } from 'simple-vue-validator';
 import Card from 'components/Card.vue';
 import SimpleInput from 'components/SimpleInput.vue';
 import TagsInput from 'components/TagsInput.vue';
 import SimpleTextarea from 'components/SimpleTextarea.vue';
 import BasicButton from 'components/BasicButton.vue';
 import ImageUpload from 'components/ImageUpload.vue';
+
+const emptyWorkData = {
+  title: '',
+  link: '',
+  description: '',
+  techs: '',
+  photo: null,
+};
 
 export default {
   components: {
@@ -61,27 +78,56 @@ export default {
       default: null,
     },
   },
+  watch: {
+    currentWork() {
+      this.updateWorkData();
+      this.validation.reset();
+    },
+  },
+  mixins: [SimpleVueValidation.mixin],
   data() {
     return {
-      workData: {
-        title: '',
-        link: '',
-        description: '',
-        techs: '',
-        photo: null,
-      },
+      workData: emptyWorkData,
     };
+  },
+  validators: {
+    'workData.title': (value) => {
+      return Validator.value(value).required('Введите название');
+    },
+    'workData.techs': (value) => {
+      return Validator.value(value).required('Введите технологии');
+    },
+    'workData.link': (value) => {
+      return Validator.value(value).required('Введите ссылку');
+    },
+    'workData.description': (value) => {
+      return Validator.value(value).required('Введите описание');
+    },
+    'workData.photo': (value) => {
+      return Validator.value(value).required('Загрузите фото');
+    },
   },
   computed: {
     title() {
       return this.currentWork ? 'Редактирование работы' : 'Создание работы';
     },
   },
-  methods: {},
+  methods: {
+    updateWorkData() {
+      this.workData = this.currentWork ? { ...this.currentWork } : { ...emptyWorkData };
+    },
+    onSubmit() {
+      this.$validate().then((success) => {
+        if (success) {
+          const eventType = this.currentWork ? 'update' : 'create';
+          this.$emit(eventType, this.workData);
+          this.validation.reset();
+        }
+      });
+    },
+  },
   created() {
-    if (this.currentWork) {
-      this.workData = { ...this.currentWork };
-    }
+    this.updateWorkData();
   },
 };
 </script>

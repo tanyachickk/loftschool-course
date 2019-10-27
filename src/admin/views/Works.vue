@@ -6,6 +6,8 @@
       work-form(
         :current-work="currentWork"
         @reset="cancelWorkChanges"
+        @create="createNewWork"
+        @update="updateCurrentWork"
       )
     .works-page__grid
       card-gradient-button.works-page__item(
@@ -15,12 +17,15 @@
       work-item.works-page__item(
         v-for="item in works"
         :key="item.id"
+        :work="item"
         :is-active="item === currentWork"
-        @edit="editWork"
+        @edit="editWork(item)"
+        @delete="deleteWork(item.id)"
       )
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex';
 import PageTitle from '@/admin/components/PageTitle.vue';
 import WorkForm from '@/admin/components/WorkForm.vue';
 import CardGradientButton from '@/admin/components/CardGradientButton.vue';
@@ -35,12 +40,44 @@ export default {
   },
   data() {
     return {
-      works: [],
       currentWork: null,
       isShowForm: false,
     };
   },
+  computed: {
+    ...mapState('works', {
+      works: (state) => state.works,
+    }),
+  },
   methods: {
+    ...mapActions('works', ['fetchWorks', 'createWork', 'updateWork', 'removeWork']),
+    ...mapActions('tooltips', ['showTooltip']),
+    async createNewWork(data) {
+      try {
+        await this.createWork(data);
+        this.showTooltip({ type: 'success', text: 'Работа успешно создана', duration: 3000 });
+      } catch (e) {
+        this.showTooltip({ type: 'error', text: e.message, duration: 3000 });
+      }
+      this.hideForm();
+    },
+    async updateCurrentWork(data) {
+      try {
+        await this.updateWork(data);
+        this.showTooltip({ type: 'success', text: 'Работа успешно обновлена', duration: 3000 });
+      } catch (e) {
+        this.showTooltip({ type: 'error', text: e.message, duration: 3000 });
+      }
+      this.hideForm();
+    },
+    async deleteWork(id) {
+      try {
+        await this.removeWork(id);
+        this.showTooltip({ type: 'success', text: 'Работа успешно удалена', duration: 3000 });
+      } catch (e) {
+        this.showTooltip({ type: 'error', text: e.message, duration: 3000 });
+      }
+    },
     showForm() {
       this.isShowForm = true;
       this.$nextTick(() => {
@@ -50,18 +87,29 @@ export default {
         });
       });
     },
+    hideForm() {
+      this.isShowForm = false;
+      this.currentWork = null;
+    },
     addWork() {
       this.currentWork = null;
       this.showForm();
     },
     cancelWorkChanges() {
       this.currentWork = null;
-      this.isShowForm = false;
+      this.hideForm();
     },
     editWork(work) {
       this.currentWork = work;
       this.showForm();
     },
+  },
+  async created() {
+    try {
+      await this.fetchWorks();
+    } catch (e) {
+      this.showTooltip({ type: 'error', text: 'Произошла ошибка при загрузке работ', duration: 3000 });
+    }
   },
 };
 </script>

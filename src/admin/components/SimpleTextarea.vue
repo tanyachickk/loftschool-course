@@ -11,16 +11,28 @@
       :class="inputClass"
       v-on="listeners"
     )
+    transition(name="slide-up")
+      .simple-textarea__error(v-if="errorMessage")
+        error-tooltip {{ errorMessage }}
 </template>
 
 <script>
+import ErrorTooltip from '@/admin/components/ErrorTooltip.vue';
+
 export default {
+  components: {
+    ErrorTooltip,
+  },
   props: {
     value: {
       type: String | Number,
       default: '',
     },
     label: {
+      type: String,
+      default: '',
+    },
+    errorMessage: {
       type: String,
       default: '',
     },
@@ -62,7 +74,8 @@ export default {
     },
     inputClass() {
       return {
-        [`simple-input__control_${this.size}`]: true,
+        [`simple-textarea__control_${this.size}`]: true,
+        'simple-textarea__control_error': this.errorMessage,
       };
     },
   },
@@ -74,6 +87,7 @@ export default {
 
 .simple-textarea {
   position: relative;
+  line-height: 0;
   width: 100%;
   &__control {
     width: 100%;
@@ -94,6 +108,11 @@ export default {
     }
     @include desktop {
       font-size: 14px;
+    }
+
+    &_error,
+    &_error:focus {
+      border-color: $danger-color;
     }
 
     &_large {
@@ -119,8 +138,28 @@ export default {
   }
 
   &__label {
+    line-height: 1.42;
     color: rgba($text-color, 0.5);
     margin-bottom: 20px;
+  }
+
+  &__error {
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+    left: 0;
+  }
+}
+
+.slide-up {
+  &-enter-to,
+  &-leave {
+    transition: all 0.3s ease;
+  }
+  &-enter,
+  &-leave-to {
+    transform: translateY(50%);
+    opacity: 0;
   }
 }
 </style>

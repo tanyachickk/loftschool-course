@@ -3,6 +3,7 @@
     simple-input(
       :value="value"
       :label="label"
+      :error-message="errorMessage"
       @input="$emit('input', $event)"
     )
     .tags-input__tags
@@ -24,6 +25,10 @@ export default {
       default: '',
     },
     label: {
+      type: String,
+      default: '',
+    },
+    errorMessage: {
       type: String,
       default: '',
     },
