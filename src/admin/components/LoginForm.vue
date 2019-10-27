@@ -46,13 +46,14 @@ export default {
   },
   methods: {
     ...mapActions('user', ['login']),
+    ...mapActions('tooltips', ['showTooltip']),
     async signIn() {
       this.isLoading = true;
       try {
         await this.login({ name: this.name, password: this.password });
         this.$router.replace('/');
       } catch (error) {
-        this.$notify({ group: 'error-notify', title: error.message });
+        this.showTooltip({ type: 'error', text: error.message, duration: 3000 });
         this.password = '';
       }
       this.isLoading = false;
@@ -92,7 +93,6 @@ export default {
     width: 20px;
     height: 20px;
     padding: 0;
-    outline: none;
     transition: opacity 0.2s ease;
     &:hover {
       opacity: 0.3;

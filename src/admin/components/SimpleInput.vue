@@ -15,10 +15,18 @@
       v-on="listeners"
     )
     .simple-input__measure(v-if="measure") {{ measure }}
+    transition(name="slide-up")
+      .simple-input__error(v-if="errorMessage")
+        error-tooltip {{ errorMessage }}
 </template>
 
 <script>
+import ErrorTooltip from '@/admin/components/ErrorTooltip.vue';
+
 export default {
+  components: {
+    ErrorTooltip,
+  },
   props: {
     value: {
       type: String | Number,
@@ -30,17 +38,19 @@ export default {
     },
     maxValue: {
       type: Number,
-      default: 100,
     },
     minValue: {
       type: Number,
-      default: 0,
     },
     step: {
       type: Number,
       default: 1,
     },
     placeholder: {
+      type: String,
+      default: '',
+    },
+    errorMessage: {
       type: String,
       default: '',
     },
@@ -79,6 +89,7 @@ export default {
     inputClass() {
       return {
         [`simple-input__control_${this.size}`]: true,
+        'simple-input__control_error': this.errorMessage,
       };
     },
   },
@@ -100,7 +111,6 @@ export default {
     background: none;
     border: none;
     border-bottom: 1px solid $text-color;
-    outline: none;
     transition: border 0.2s ease;
 
     &:focus {
@@ -111,6 +121,11 @@ export default {
     }
     @include desktop {
       font-size: 14px;
+    }
+
+    &_error,
+    &_error:focus {
+      border-bottom-color: $danger-color;
     }
 
     &_large {
@@ -145,6 +160,24 @@ export default {
       bottom: 0;
       background-color: rgba(white, 0.8);
     }
+  }
+  &__error {
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+    left: 0;
+  }
+}
+
+.slide-up {
+  &-enter-to,
+  &-leave {
+    transition: all 0.3s ease;
+  }
+  &-enter,
+  &-leave-to {
+    transform: translateY(50%);
+    opacity: 0;
   }
 }
 </style>

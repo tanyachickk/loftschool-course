@@ -2,18 +2,20 @@
   .works-page
     .works-page__title
       page-title
-    .works-page__form(v-if="isShowForm")
+    .works-page__form(ref="form" v-if="isShowForm")
       work-form(
         :current-work="currentWork"
         @reset="cancelWorkChanges"
       )
     .works-page__grid
       card-gradient-button.works-page__item(
+        :is-disabled="isShowForm && !currentWork"
         @click="addWork"
       ) Добавить #[br] работу
       work-item.works-page__item(
-        v-for="i in 10"
-        :key="i"
+        v-for="item in works"
+        :key="item.id"
+        :is-active="item === currentWork"
         @edit="editWork"
       )
 </template>
@@ -33,14 +35,24 @@ export default {
   },
   data() {
     return {
-      isShowForm: false,
+      works: [],
       currentWork: null,
+      isShowForm: false,
     };
   },
   methods: {
+    showForm() {
+      this.isShowForm = true;
+      this.$nextTick(() => {
+        this.$scrollTo(this.$refs.form, 500, {
+          container: '.inner-page__content',
+          offset: -50,
+        });
+      });
+    },
     addWork() {
       this.currentWork = null;
-      this.isShowForm = true;
+      this.showForm();
     },
     cancelWorkChanges() {
       this.currentWork = null;
@@ -48,7 +60,7 @@ export default {
     },
     editWork(work) {
       this.currentWork = work;
-      this.isShowForm = false;
+      this.showForm();
     },
   },
 };

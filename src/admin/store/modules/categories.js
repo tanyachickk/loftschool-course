@@ -1,3 +1,5 @@
+import { generateStdError } from '@/admin/helpers/errorHandler';
+
 export default {
   namespaced: true,
   state: {
@@ -26,7 +28,7 @@ export default {
         commit('CREATE_CATEGORY', response.data);
         return response;
       } catch (error) {
-        throw new Error(error.response.data.error || error.response.data.message);
+        generateStdError(error);
       }
     },
     async updateSkillGroup({ commit }, { id, title }) {
@@ -35,7 +37,7 @@ export default {
         commit('UPDATE_CATEGORY', response.data.category);
         return response;
       } catch (error) {
-        throw new Error(error.response.data.error || error.response.data.message);
+        generateStdError(error);
       }
     },
     async removeSkillGroup({ commit }, id) {
@@ -44,17 +46,17 @@ export default {
         commit('DELETE_CATEGORY', id);
         return response;
       } catch (error) {
-        throw new Error(error.response.data.error || error.response.data.message);
+        generateStdError(error);
       }
     },
-    async fetchCategories({ rootState, commit }) {
+    async fetchCategories({ rootGetters, commit }) {
       try {
-        const userId = rootState.user.user.id;
+        const userId = rootGetters['user/userId'];
         const response = await this.$axios.get(`/categories/${userId}`);
         commit('SET_CATEGORIES', response.data.reverse());
         return response;
       } catch (error) {
-        throw new Error(error.response.data.error || error.response.data.message);
+        generateStdError(error);
       }
     },
   },

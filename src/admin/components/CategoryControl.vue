@@ -4,9 +4,11 @@
       simple-input(
         :value="value"
         :readonly="!isEditMode"
+        :error-message="validation.firstError('value')"
         size="large"
         placeholder="Название новой группы"
         @input="$emit('input', $event)"
+        @keydown.enter="save"
       )
     .category-control__buttons
       template(v-if="!isEditMode")
@@ -23,7 +25,7 @@
       template(v-else)
         button.category-control__button.category-control__button_save(
           key="save"
-          @click="$emit('save')"
+          @click="save"
         )
           icon(name="tick")
         button.category-control__button.category-control__button_cancel(
@@ -34,14 +36,18 @@
 </template>
 
 <script>
+import SimpleVueValidation from 'simple-vue-validator';
 import SimpleInput from 'components/SimpleInput.vue';
 import Icon from 'components/Icon.vue';
+
+const Validator = SimpleVueValidation.Validator;
 
 export default {
   components: {
     SimpleInput,
     Icon,
   },
+  mixins: [SimpleVueValidation.mixin],
   props: {
     value: {
       type: String,
@@ -52,8 +58,28 @@ export default {
       default: false,
     },
   },
-  data() {
-    return {};
+  watch: {
+    isEditMode(value) {
+      if (value) {
+        const inputElements = this.$el.querySelectorAll('input');
+        inputElements[0].focus();
+      }
+    },
+  },
+  validators: {
+    value: (value) => {
+      return Validator.value(value).required('Введите название группы');
+    },
+  },
+  methods: {
+    save() {
+      this.$validate().then((success) => {
+        if (success) {
+          this.$emit('save');
+          this.validation.reset();
+        }
+      });
+    },
   },
 };
 </script>
@@ -83,7 +109,6 @@ export default {
     fill: $text-color;
     border: none;
     background: none;
-    outline: none;
     cursor: pointer;
     transition: opacity 0.2s ease;
     &:hover {

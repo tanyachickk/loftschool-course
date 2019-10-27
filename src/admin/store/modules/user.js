@@ -1,4 +1,5 @@
 import { setToken, removeToken, setAuthHttpHeaderToAxios } from '@/admin/helpers/token';
+import { generateStdError } from '../../helpers/errorHandler';
 
 export default {
   namespaced: true,
@@ -20,6 +21,9 @@ export default {
 
       return userObjectIsEmpty === false;
     },
+    userId: (state) => {
+      return state.user.id;
+    },
   },
   actions: {
     async fetchUser({ commit }) {
@@ -27,7 +31,7 @@ export default {
         const { data } = await this.$axios.get('/user');
         commit('SET_USER', data.user);
       } catch (error) {
-        throw new Error(error.response.data.error || error.response.data.message);
+        generateStdError(error);
       }
     },
     async login({ dispatch }, params) {
@@ -39,7 +43,7 @@ export default {
         await dispatch('fetchUser');
         return response;
       } catch (error) {
-        throw new Error(error.response.data.error || error.response.data.message);
+        generateStdError(error);
       }
     },
     async logout({ commit }, params) {
@@ -49,7 +53,7 @@ export default {
         commit('RESET_USER');
         return response;
       } catch (error) {
-        throw new Error(error.response.data.error || error.response.data.message);
+        generateStdError(error);
       }
     },
   },

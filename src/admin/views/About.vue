@@ -52,11 +52,8 @@ export default {
     };
   },
   computed: {
-    ...mapState('categories', {
-      categories: (state) =>
-        state.categories.sort((a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime()),
-    }),
     ...mapState('skills', {
+      categories: (state) => state.categories,
       skills: (state) => state.skills,
     }),
     skillsByCategory() {
@@ -73,8 +70,17 @@ export default {
     },
   },
   methods: {
-    ...mapActions('skills', ['fetchSkills', 'addSkill', 'editSkill', 'removeSkill']),
-    ...mapActions('categories', ['fetchCategories', 'addNewSkillGroup', 'updateSkillGroup', 'removeSkillGroup']),
+    ...mapActions('tooltips', ['showTooltip']),
+    ...mapActions('skills', [
+      'fetchSkills',
+      'addSkill',
+      'editSkill',
+      'removeSkill',
+      'fetchCategories',
+      'addNewSkillGroup',
+      'updateSkillGroup',
+      'removeSkillGroup',
+    ]),
     showNewSkill() {
       this.isShowNewSkill = true;
     },
@@ -83,45 +89,55 @@ export default {
     },
     async createCategory(value) {
       try {
-        this.addNewSkillGroup(value);
+        await this.addNewSkillGroup(value);
+        this.showTooltip({ type: 'success', text: 'Группа успешно добавлена', duration: 3000 });
       } catch (e) {
-        // TODO
+        this.showTooltip({ type: 'error', text: e.message, duration: 3000 });
       }
       this.isShowNewSkill = false;
     },
     async updateCategory(id, title) {
+      const sourceCategory = this.categories.find((item) => item.id);
+      if (sourceCategory && sourceCategory.category === title) {
+        return;
+      }
       try {
-        this.updateSkillGroup({ id, title });
+        await this.updateSkillGroup({ id, title });
+        this.showTooltip({ type: 'success', text: 'Группа успешно обновлена', duration: 3000 });
       } catch (e) {
-        // TODO
+        this.showTooltip({ type: 'error', text: e.message, duration: 3000 });
       }
     },
     async createSkill(category, data) {
       try {
-        this.addSkill({ ...data, category });
+        await this.addSkill({ ...data, category });
+        this.showTooltip({ type: 'success', text: 'Навык успешно добавлен', duration: 3000 });
       } catch (e) {
-        // TODO
+        this.showTooltip({ type: 'error', text: e.message, duration: 3000 });
       }
     },
     async updateSkill(data) {
       try {
-        this.editSkill(data);
+        await this.editSkill(data);
+        this.showTooltip({ type: 'success', text: 'Навык успешно обновлен', duration: 3000 });
       } catch (e) {
-        // TODO
+        this.showTooltip({ type: 'error', text: e.message, duration: 3000 });
       }
     },
     async deleteSkill(id) {
       try {
+        await this.showTooltip({ type: 'success', text: 'Навык успешно удален', duration: 3000 });
         this.removeSkill(id);
       } catch (e) {
-        // TODO
+        this.showTooltip({ type: 'error', text: e.message, duration: 3000 });
       }
     },
     async deleteSkillGroup(id) {
       try {
-        this.removeSkillGroup(id);
+        await this.removeSkillGroup(id);
+        this.showTooltip({ type: 'success', text: 'Группа успешно удалена', duration: 3000 });
       } catch (e) {
-        // TODO
+        this.showTooltip({ type: 'error', text: e.message, duration: 3000 });
       }
     },
   },

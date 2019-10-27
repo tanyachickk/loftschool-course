@@ -1,15 +1,22 @@
 <template lang="pug">
   #app
     router-view
-    custom-notify(group="success-notify")
-    custom-notify(group="error-notify")
+    .tooltip-container(:class="{ 'tooltip-container_showed': showed }")
+      tooltip
 </template>
 
 <script>
-import CustomNotify from './components/CustomNotify.vue';
+import { mapState, mapActions, mapGetters } from 'vuex';
+import Tooltip from './components/Tooltip.vue';
+
 export default {
   components: {
-    CustomNotify,
+    Tooltip,
+  },
+  computed: {
+    ...mapState('tooltips', {
+      showed: (state) => state.showed,
+    }),
   },
 };
 </script>
@@ -23,5 +30,17 @@ export default {
 .admin-wrapper {
   background-image: url('../images/content/train-bridge.jpg');
   background-size: cover;
+}
+
+.tooltip-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  transform: translateY(100%);
+  transition: 0.3s transform ease;
+  &_showed {
+    transform: translate(0);
+  }
 }
 </style>

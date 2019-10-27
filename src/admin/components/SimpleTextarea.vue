@@ -84,7 +84,6 @@ export default {
     padding: 20px;
     background: none;
     border: 1px solid rgba($text-color, 0.2);
-    outline: none;
     transition: border 0.2s ease;
 
     &:focus {

@@ -1,6 +1,6 @@
 <template lang="pug">
   card.skill-group
-    category-control(
+    category-control.skill-group__category(
       slot="title"
       v-model="categoryTitle"
       :is-edit-mode="isEditMode"
@@ -16,7 +16,7 @@
           :key="skill.id"
           :title="skill.title"
           :percent="skill.percent"
-          @save="$emit('update-skill', { ...skill, ...$event })"
+          @save="onUpdateSkill(skill, $event)"
           @delete="$emit('delete-skill', skill.id)"
         )
       .skill-group__new-skill
@@ -59,6 +59,12 @@ export default {
     };
   },
   methods: {
+    onUpdateSkill(prevValue, nextValue) {
+      if (prevValue.title === nextValue.title && prevValue.percent === nextValue.percent) {
+        return;
+      }
+      this.$emit('update-skill', { ...prevValue, ...nextValue });
+    },
     onResetCategoryChanges() {
       this.categoryTitle = this.title;
       this.isEditMode = false;
@@ -83,6 +89,11 @@ export default {
 .skill-group {
   height: 100%;
   min-height: 415px;
+
+  &__category {
+    padding: 0 10px;
+  }
+
   &__skills-table {
     margin-bottom: 30px;
   }

@@ -4,16 +4,18 @@
       simple-input(
         v-model="skillTitle"
         :readonly="!isEditMode"
+        :error-message="validation.firstError('skillTitle')"
         placeholder="Название навыка"
+        @keydown.enter="onSave"
       )
     td.skill__percent
       simple-input(
         v-model="skillPercent"
         :readonly="!isEditMode"
+        :error-message="validation.firstError('skillPercent')"
         type="number"
-        min="0"
-        max="100"
         measure="%"
+        @keydown.enter="onSave"
       )
     td.skill__controls
       .skill__buttons(v-if="isEditMode")
@@ -41,8 +43,11 @@
 </template>
 
 <script>
+import SimpleVueValidation from 'simple-vue-validator';
 import SimpleInput from 'components/SimpleInput.vue';
 import Icon from 'components/Icon.vue';
+
+const Validator = SimpleVueValidation.Validator;
 
 export default {
   components: {
@@ -59,6 +64,15 @@ export default {
       default: 100,
     },
   },
+  mixins: [SimpleVueValidation.mixin],
+  watch: {
+    isEditMode(value) {
+      if (value) {
+        const inputElements = this.$el.querySelectorAll('input');
+        inputElements[0].focus();
+      }
+    },
+  },
   data() {
     return {
       isEditMode: false,
@@ -66,10 +80,23 @@ export default {
       skillPercent: '',
     };
   },
+  validators: {
+    skillTitle: (value) => {
+      return Validator.value(value).required('Введите навык');
+    },
+    skillPercent: (value) => {
+      return Validator.value(value).between(0, 100, 'Ошибка');
+    },
+  },
   methods: {
     onSave() {
-      this.$emit('save', { title: this.skillTitle, percent: this.skillPercent });
-      this.isEditMode = false;
+      this.$validate().then((success) => {
+        if (success) {
+          this.$emit('save', { title: this.skillTitle, percent: this.skillPercent });
+          this.isEditMode = false;
+          this.validation.reset();
+        }
+      });
     },
     onCancel() {
       this.skillTitle = this.title;
@@ -116,7 +143,6 @@ export default {
     fill: $text-color;
     border: none;
     background: none;
-    outline: none;
     cursor: pointer;
     transition: opacity 0.2s ease;
     &:hover {

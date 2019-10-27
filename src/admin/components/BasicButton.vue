@@ -91,7 +91,6 @@ export default {
   font-size: 18px;
   font-weight: 700;
   transition: background-image 0.2s ease;
-  outline: none;
   cursor: pointer;
   @include phones {
     width: 100%;
@@ -119,7 +118,7 @@ export default {
 
   &_flat {
     background-image: none;
-    &:not(.button_disabled):hover {
+    &:not(.basic-button_disabled):hover {
       background-image: none;
       opacity: 0.6;
     }

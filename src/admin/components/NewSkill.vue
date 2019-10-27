@@ -1,31 +1,36 @@
 <template lang="pug">
-  .new-skill
+  form.new-skill(@submit.prevent="createSkill")
     .new-skill__title
       simple-input(
         v-model="title"
         :disabled="isDisabled"
+        :error-message="validation.firstError('title')"
         placeholder="Новый навык"
       )
     .new-skill__percent
       simple-input(
         v-model="percent"
         :disabled="isDisabled"
+        :error-message="validation.firstError('percent')"
         type="number"
         measure="%"
       )
     .new-skill__button
       basic-button(
+        type="submit"
         icon="plus"
         display="flat"
         :disabled="isDisabled"
         :circle="true"
-        @click="createSkill"
       )
 </template>
 
 <script>
+import SimpleVueValidation from 'simple-vue-validator';
 import SimpleInput from 'components/SimpleInput.vue';
 import BasicButton from 'components/BasicButton.vue';
+
+const Validator = SimpleVueValidation.Validator;
 
 export default {
   components: {
@@ -38,19 +43,30 @@ export default {
       default: false,
     },
   },
+  mixins: [SimpleVueValidation.mixin],
   data() {
     return {
       title: '',
       percent: 100,
     };
   },
+  validators: {
+    title: (value) => {
+      return Validator.value(value).required('Введите навык');
+    },
+    percent: (value) => {
+      return Validator.value(value).between(0, 100, 'Ошибка');
+    },
+  },
   methods: {
     createSkill() {
-      // TODO: validation
-      if (this.title && this.percent >= 0 && this.percent <= 100) {
-        this.$emit('add', { title: this.title, percent: this.percent });
-        this.resetSkillData();
-      }
+      this.$validate().then((success) => {
+        if (success) {
+          this.$emit('add', { title: this.title, percent: parseInt(this.percent) });
+          this.resetSkillData();
+          this.validation.reset();
+        }
+      });
     },
     resetSkillData() {
       this.title = '';

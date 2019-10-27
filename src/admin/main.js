@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import SimpleVueValidation from 'simple-vue-validator';
-import Notifications from 'vue-notification';
-import velocity from 'velocity-animate';
+import VueScrollTo from 'vue-scrollto';
 import App from './App.vue';
 import router from './router';
 import store from './store';
@@ -9,7 +8,7 @@ import requests from './requests';
 import './focus';
 
 Vue.use(SimpleVueValidation);
-Vue.use(Notifications, { velocity });
+Vue.use(VueScrollTo);
 store.$axios = requests;
 
 new Vue({

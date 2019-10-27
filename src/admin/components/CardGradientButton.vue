@@ -1,6 +1,6 @@
 <template lang="pug">
   button.card-button(
-    :class="{ 'add-work_disabled': isDisabled }"
+    :class="{ 'card-button_disabled': isDisabled }"
     v-on="$listeners"
   )
     .card-button__icon
