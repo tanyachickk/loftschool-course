@@ -4,34 +4,25 @@ const shared = {
   path: '/wd/hub',
   coloredLogs: true,
   waitforTimeout: 10000,
+  screenshotPath: './',
   connectionRetryTimeout: 90000,
   connectionRetryCount: 3,
-  maxInstances: 1
+  maxInstances: 1,
 };
 
-// exports.firefox = {
-//   ...shared,
-//   desiredCapabilities: {
-//     browserName: 'firefox'
-//   }
-// };
+exports.firefox = {
+  ...shared,
+  desiredCapabilities: {
+    browserName: 'firefox',
+  },
+};
 
 exports.chrome = {
   ...shared,
   desiredCapabilities: {
     browserName: 'chrome',
     chromeOptions: {
-      args: ["disable-gpu", 'no-sandbox', 'disable-setuid-sandbox', 'incognito', 'disable-dev-shm-usage']
-    }
+      args: ['disable-gpu', 'no-sandbox', 'disable-setuid-sandbox', 'incognito', 'disable-dev-shm-usage'],
+    },
   },
 };
-
-// exports.opera = {
-//   ...shared,
-//   desiredCapabilities: {
-//       browserName: 'opera',
-//       operaOptions: {
-//           args: ["disable-gpu", 'no-sandbox', 'disable-setuid-sandbox', 'incognito', 'disable-dev-shm-usage']
-//       }
-//   }
-// };

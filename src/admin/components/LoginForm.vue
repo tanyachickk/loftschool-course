@@ -1,5 +1,5 @@
 <template lang="pug">
-  transition(name="slide-up" appear)
+    //- transition(name="slide-up" appear)
     .login-form
       .login-form__title Авторизация
       button.login-form__close(@click="exitFromAdmin")
@@ -124,7 +124,7 @@ export default {
   }
 }
 
-.slide-up {
+/* .slide-up {
   &-enter-to,
   &-leave {
     transition: all 0.3s ease;
@@ -140,5 +140,5 @@ export default {
       transition: none;
     }
   }
-}
+} */
 </style>
