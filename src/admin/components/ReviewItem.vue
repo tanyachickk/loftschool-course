@@ -1,12 +1,12 @@
 <template lang="pug">
   card.review-item(:class="{ 'review-item_active': isActive }")
     .review-item__header(slot="title")
-      img.review-item__user-avatar(:src="require('images/content/sabantsev.png')")
+      img.review-item__user-avatar(:src="imageSrc")
       .review-item__user-info
-        .review-item__user-name Владимир Сабанцев
-        .review-item__user-position Преподаватель
+        .review-item__user-name {{ review.author }}
+        .review-item__user-position {{ review.occ }}
     .review-item__content(slot="content")
-      .review-item__text Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!
+      .review-item__text {{ review.text }}
       .review-item__controls
         button.review-item__button.review-item__button_edit(@click="$emit('edit')")
           .review-item__button-text Править
@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import { getAbsoluteImgPath } from '@/admin/helpers/pictures';
 import Card from 'components/Card.vue';
 import Icon from 'components/Icon.vue';
 
@@ -26,6 +27,10 @@ export default {
     Icon,
   },
   props: {
+    review: {
+      type: Object,
+      default: {},
+    },
     isActive: {
       type: Boolean,
       default: false,
@@ -34,7 +39,11 @@ export default {
   data() {
     return {};
   },
-  methods: {},
+  computed: {
+    imageSrc() {
+      return getAbsoluteImgPath(this.review.photo);
+    },
+  },
 };
 </script>
 

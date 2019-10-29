@@ -19,7 +19,7 @@ export default {
     },
   },
   actions: {
-    async addReview({ commit }, payload) {
+    async createReview({ commit }, payload) {
       const data = wrapIntoFormData(payload);
       try {
         const response = await this.$axios.post('/reviews', data);
