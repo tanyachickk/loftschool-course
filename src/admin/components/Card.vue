@@ -28,6 +28,7 @@
   &__body {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     flex-grow: 1;
     padding: 30px;
   }

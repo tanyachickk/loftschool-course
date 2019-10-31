@@ -5,7 +5,7 @@
       .review-item__user-info
         .review-item__user-name {{ review.author }}
         .review-item__user-position {{ review.occ }}
-    .review-item__content(slot="content")
+    template(slot="content")
       .review-item__text {{ review.text }}
       .review-item__controls
         button.review-item__button.review-item__button_edit(@click="$emit('edit')")

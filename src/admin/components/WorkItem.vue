@@ -4,7 +4,7 @@
       img.work-item__image(:src="imageSrc")
       .work-item__tags
         tags(:tags="tags")
-    .work-item__content(slot="content")
+    template(slot="content")
       .work-item__title {{ work.title }}
       .work-item__text {{ work.description }}
       a.work-item__link(:href="work.link" target="_blank") {{ work.link }}
