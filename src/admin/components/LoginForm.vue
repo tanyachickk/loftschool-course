@@ -39,8 +39,8 @@ export default {
   },
   data() {
     return {
-      name: '',
-      password: '',
+      name: 'test-241019',
+      password: '12345',
       isLoading: false,
     };
   },
