@@ -1,13 +1,14 @@
 import Vue from 'vue';
+import axios from 'axios';
 import skills from '../data/skills';
 
 const skill = {
   template: '#skill',
   props: {
-    skillName: {
+    title: {
       type: String,
     },
-    skillPercent: {
+    percent: {
       type: Number,
     },
     isInViewport: {
@@ -25,7 +26,7 @@ const skill = {
       return 2 * Math.PI * this.r;
     },
     lineLength() {
-      return this.isInViewport ? this.circumference * (1 - this.skillPercent / 100) : this.circumference;
+      return this.isInViewport ? this.circumference * (1 - this.percent / 100) : this.circumference;
     },
   },
 };
@@ -36,8 +37,13 @@ const skillsRow = {
     skill,
   },
   props: {
-    skill: {
-      type: Object,
+    title: {
+      type: String,
+      default: '',
+    },
+    skills: {
+      type: Array,
+      default: () => ([]),
     },
     isInViewport: {
       type: Boolean,
@@ -54,10 +60,19 @@ new Vue({
   },
   data() {
     return {
-      skills,
+      skills: [],
+      categories: [],
       observer: null,
       isInViewport: false,
     };
+  },
+  computed: {
+    skillGroups() {
+      return this.categories.map((category) => ({
+        title: category.category,
+        skills: this.skills.filter((skill) => skill.category === category.id),
+      }));
+    },
   },
   methods: {
     onIntersecting(entries) {
@@ -66,7 +81,19 @@ new Vue({
           this.isInViewport = entry.isIntersecting;
         }
       })
-    }
+    },
+    async fetchSkills() {
+      const { data: skills } = await axios.get(`${process.env.BASE_URL}/skills/${process.env.USER_ID}`);
+      this.skills = skills;
+    },
+    async fetchCategories() {
+      const { data: categories } = await axios.get(`${process.env.BASE_URL}/categories/${process.env.USER_ID}`);
+      this.categories = categories;
+    },
+  },
+  created() {
+    this.fetchCategories();
+    this.fetchSkills();
   },
   mounted() {
     this.observer = new IntersectionObserver(this.onIntersecting);
