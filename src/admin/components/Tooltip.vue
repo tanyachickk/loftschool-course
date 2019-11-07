@@ -34,7 +34,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding: 20px 30px;
-  margin-left: 5vw;
+  margin: 0 auto;
   width: 391px;
   color: white;
 
