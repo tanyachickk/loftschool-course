@@ -1,6 +1,6 @@
 import Vue from 'vue';
+import axios from 'axios';
 import flickity from 'vue-flickity';
-import reviews from '../data/reviews.json';
 
 const review = {
   template: '#review',
@@ -29,7 +29,7 @@ new Vue({
   },
   data() {
     return {
-      reviews,
+      reviews: [],
       currentSlideIndex: 0,
       flickityOptions: {
         prevNextButtons: false,
@@ -43,12 +43,6 @@ new Vue({
   computed: {
     slidesLength() {
       return Math.ceil(this.reviews.length / this.flickityOptions.groupCells);
-    },
-    reviewsWithRequiredImages() {
-      return this.reviews.map((item) => ({
-        ...item,
-        photo: require(`../images/${item.photo}`),
-      }));
     },
   },
   methods: {
@@ -66,17 +60,36 @@ new Vue({
       const max = Math.max(...heights);
 
       slides.forEach((slide) => (slide.style.height = max + 'px'));
+
+      const viewport = document.querySelector('.flickity-viewport');
+      viewport.style.height = max + 'px';
     },
     onResize() {
       this.flickityOptions.groupCells = window.innerWidth > 768 ? 2 : 1;
       this.setCellHeight();
     },
+    async fetchReviews() {
+      const { data: reviews } = await axios.get(`${process.env.BASE_URL}/reviews/${process.env.USER_ID}`);
+      this.reviews = reviews.map((item) => ({
+        ...item,
+        photo: `${process.env.BASE_URL}/${item.photo}`,
+      }));
+    },
+    async initializeSlider() {
+      await this.fetchReviews();
+      this.$nextTick(() => {
+        this.$refs.flickity.rerender();
+        this.setCellHeight();
+        this.$refs.flickity.on('change', () => {
+          this.currentSlideIndex = this.$refs.flickity.selectedIndex();
+        });
+      });
+    }
+  },
+  created() {
+    this.initializeSlider();
   },
   mounted() {
-    this.$refs.flickity.on('change', () => {
-      this.currentSlideIndex = this.$refs.flickity.selectedIndex();
-    });
-    this.setCellHeight();
     window.addEventListener('resize', this.onResize);
   },
   beforeDestroy() {

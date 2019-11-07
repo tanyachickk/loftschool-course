@@ -11,7 +11,7 @@ script(type="text/x-template")#reviews-content
           +arrow-button('next', 'circle', 'transparent')
     .reviews__body
       flickity.reviews__list(ref="flickity" :options="flickityOptions")
-        .carousel-cell.reviews__item(v-for="(review, index) in reviewsWithRequiredImages" :key="index")
+        .carousel-cell.reviews__item(v-for="(review, index) in reviews" :key="index")
           review(v-bind="review")
 
 script(type="text/x-template")#review
