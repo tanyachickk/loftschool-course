@@ -1,39 +1,44 @@
 <template lang="pug">
   .about-page
-    .about-page__header
-      page-title
-      .about-page__add-group(v-if="!isShowNewSkill")
-        basic-button(
-          size="small"
-          icon="plus"
-          display="flat"
-          :circle="true"
-          @click="showNewSkill"
-        ) Добавить группу
-    .about-page__content
-      .about-page__skill-group(v-if="isShowNewSkill")
-        new-skill-group(
-          @create-category="createCategory"
-          @reset="isShowNewSkill = false"
+    .about-page__preloader(v-if="isLoading")
+      clip-loader(:color="accentColor" :size="70")
+    template(v-else)
+      .about-page__header
+        page-title
+        .about-page__add-group(v-if="!isShowNewSkill")
+          basic-button(
+            size="small"
+            icon="plus"
+            display="flat"
+            :circle="true"
+            @click="showNewSkill"
+          ) Добавить группу
+      .about-page__content
+        .about-page__skill-group(v-if="isShowNewSkill")
+          new-skill-group(
+            @create-category="createCategory"
+            @reset="isShowNewSkill = false"
+          )
+        .about-page__skill-group(
+          v-for="category in categories"
         )
-      .about-page__skill-group(
-        v-for="category in categories"
-      )
-        skill-group(
-          :key="category.id"
-          :title="category.category"
-          :category-id="category.id"
-          :skills="skillsByCategory[category.id]"
-          @update-category="updateCategory(category.id, $event)"
-          @delete-group="deleteSkillGroup(category.id)"
-          @add-skill="createSkill(category.id, $event)"
-          @update-skill="updateSkill"
-          @delete-skill="deleteSkill"
-        )
+          skill-group(
+            :key="category.id"
+            :title="category.category"
+            :category-id="category.id"
+            :skills="skillsByCategory[category.id]"
+            @update-category="updateCategory(category.id, $event)"
+            @delete-group="deleteSkillGroup(category.id)"
+            @add-skill="createSkill(category.id, $event)"
+            @update-skill="updateSkill"
+            @delete-skill="deleteSkill"
+          )
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex';
+import { ClipLoader } from '@saeris/vue-spinners';
+import * as variables from '../../styles/variables.json';
 import PageTitle from '@/admin/components/PageTitle.vue';
 import BasicButton from '@/admin/components/BasicButton.vue';
 import NewSkillGroup from '@/admin/components/NewSkillGroup.vue';
@@ -45,10 +50,13 @@ export default {
     BasicButton,
     NewSkillGroup,
     SkillGroup,
+    ClipLoader,
   },
   data() {
     return {
       isShowNewSkill: false,
+      isLoading: false,
+      accentColor: variables['accent-color'],
     };
   },
   computed: {
@@ -140,13 +148,19 @@ export default {
         this.showTooltip({ type: 'error', text: e.message, duration: 3000 });
       }
     },
+    async fetchData() {
+      this.isLoading = true;
+      try {
+        await Promise.all([this.fetchSkills(), this.fetchCategories()]);
+      } catch (e) {
+        this.showTooltip({ type: 'error', text: 'Произошла ошибка при загрузке данных', duration: 3000 });
+      } finally {
+        this.isLoading = false;
+      }
+    },
   },
-  async created() {
-    try {
-      await Promise.all([this.fetchSkills(), this.fetchCategories()]);
-    } catch (e) {
-      this.showTooltip({ type: 'error', text: 'Произошла ошибка при загрузке данных', duration: 3000 });
-    }
+  created() {
+    this.fetchData();
   },
 };
 </script>
@@ -172,6 +186,17 @@ export default {
     @include phones {
       padding: 0 20px;
     }
+  }
+
+  &__preloader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   &__add-group {

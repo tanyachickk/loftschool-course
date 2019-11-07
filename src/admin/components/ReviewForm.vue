@@ -30,12 +30,14 @@
           basic-button.new-review__button(
             size="small"
             display="flat"
+            :disabled="isSending"
             @click="$emit('reset')"
           ) Отмена
           basic-button.new-review__button.new-review__button_save(
             type="submit"
             size="small"
             :bordered="true"
+            :disabled="isSending"
           ) Сохранить
 </template>
 
@@ -67,6 +69,10 @@ export default {
       type: Object,
       default: null,
     },
+    isSending: {
+      type: Boolean,
+      default: false
+    }
   },
   watch: {
     currentReview() {

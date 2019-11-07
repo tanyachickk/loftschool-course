@@ -118,6 +118,9 @@ export default {
 
   &_flat {
     background-image: none;
+    &:hover {
+      background-image: none;
+    }
     &:not(.basic-button_disabled):hover {
       background-image: none;
       opacity: 0.6;

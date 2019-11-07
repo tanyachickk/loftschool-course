@@ -1,31 +1,36 @@
 <template lang="pug">
   .works-page
-    .works-page__title
-      page-title
-    .works-page__form(ref="form" v-if="isShowForm")
-      work-form(
-        :current-work="currentWork"
-        @reset="cancelWorkChanges"
-        @create="createNewWork"
-        @update="updateCurrentWork"
-      )
-    .works-page__grid
-      card-gradient-button.works-page__item(
-        :is-disabled="isShowForm && !currentWork"
-        @click="addWork"
-      ) Добавить #[br] работу
-      work-item.works-page__item(
-        v-for="item in works"
-        :key="item.id"
-        :work="item"
-        :is-active="item === currentWork"
-        @edit="editWork(item)"
-        @delete="deleteWork(item.id)"
-      )
+    .works-page__preloader(v-if="isLoading")
+      clip-loader(:color="accentColor" :size="70")
+    template(v-else)
+      .works-page__title
+        page-title
+      .works-page__form(ref="form" v-if="isShowForm")
+        work-form(
+          :current-work="currentWork"
+          @reset="cancelWorkChanges"
+          @create="createNewWork"
+          @update="updateCurrentWork"
+        )
+      .works-page__grid
+        card-gradient-button.works-page__item(
+          :is-disabled="isShowForm && !currentWork"
+          @click="addWork"
+        ) Добавить #[br] работу
+        work-item.works-page__item(
+          v-for="item in works"
+          :key="item.id"
+          :work="item"
+          :is-active="item === currentWork"
+          @edit="editWork(item)"
+          @delete="deleteWork(item.id)"
+        )
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex';
+import { ClipLoader } from '@saeris/vue-spinners';
+import * as variables from '../../styles/variables.json';
 import PageTitle from '@/admin/components/PageTitle.vue';
 import WorkForm from '@/admin/components/WorkForm.vue';
 import CardGradientButton from '@/admin/components/CardGradientButton.vue';
@@ -37,11 +42,14 @@ export default {
     WorkForm,
     CardGradientButton,
     WorkItem,
+    ClipLoader
   },
   data() {
     return {
       currentWork: null,
       isShowForm: false,
+      isLoading: false,
+      accentColor: variables['accent-color'],
     };
   },
   computed: {
@@ -103,13 +111,19 @@ export default {
       this.currentWork = work;
       this.showForm();
     },
+    async fetchData() {
+      this.isLoading = true;
+      try {
+        await this.fetchWorks();
+      } catch (e) {
+        this.showTooltip({ type: 'error', text: 'Произошла ошибка при загрузке работ', duration: 3000 });
+      } finally {
+        this.isLoading = false;
+      }
+    },
   },
-  async created() {
-    try {
-      await this.fetchWorks();
-    } catch (e) {
-      this.showTooltip({ type: 'error', text: 'Произошла ошибка при загрузке работ', duration: 3000 });
-    }
+  created() {
+    this.fetchData();
   },
 };
 </script>
@@ -134,6 +148,17 @@ export default {
       padding: 0 20px;
       margin-bottom: 48px;
     }
+  }
+
+  &__preloader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   &__form {
