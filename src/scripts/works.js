@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import works from '../data/works';
+import axios from 'axios';
 import constants from '../styles/variables.json';
 
 const sliderThumbs = {
@@ -128,19 +128,25 @@ const sliderInfo = {
     tags: sliderTags,
   },
   props: {
-    skills: {
-      type: Array,
+    techs: {
+      type: String,
+      default: '',
     },
     title: {
       type: String,
     },
-    desc: {
+    description: {
       type: String,
     },
     link: {
       type: String,
     },
   },
+  computed: {
+    tags() {
+      return this.techs.split(', ');
+    }
+  }
 };
 
 new Vue({
@@ -165,14 +171,15 @@ new Vue({
     changeSlide(value) {
       this.currentWorkIndex = value;
     },
-    makeArrayWithRequiredImages(data) {
-      return data.map((item) => ({
+    async fetchWorks() {
+      const { data: works } = await axios.get(`${process.env.BASE_URL}/works/${process.env.USER_ID}`);
+      this.works = works.map((item) => ({
         ...item,
-        photo: require(`../images/content/${item.photo}`),
+        photo: `${process.env.BASE_URL}/${item.photo}`,
       }));
     },
   },
   created() {
-    this.works = this.makeArrayWithRequiredImages(works);
+    this.fetchWorks();
   },
 });

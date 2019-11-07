@@ -15,7 +15,11 @@ script(type="text/x-template")#slider-container
 script(type="text/x-template")#slider-display
   .slider-display(:data-index="currentIndex + 1")
     transition-group.slider-display__current-slide(name="fade" tag="div")
-      img.slider-display__current-image(:src="currentWork.photo" :key="currentWork.id")
+      img.slider-display__current-image(
+        v-if="currentWork"
+        :src="currentWork.photo"
+        :key="currentWork.id"
+      )
     .slider-display__thumbs
       .slider-display__thumbs-list(:style="`transform: translateX(-${offset*100/maxThumbsCount}%)`")
         slider-thumbs(
@@ -58,9 +62,9 @@ script(type="text/x-template")#slider-buttons
 script(type="text/x-template")#slider-info
   .slider-info
     .slider-info__tags
-      tags(:tags="skills")
+      tags(:tags="tags")
     .slider-info__title {{ title }}
-    .slider-info__description {{ desc }}
+    .slider-info__description {{ description }}
     a.slider-info__link(:href="link" target="_blank")
       +icon('link', 'slider-info__link-icon')
       .slider-info__link-text Посмотреть сайт

@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import axios from 'axios';
-import skills from '../data/skills';
 
 const skill = {
   template: '#skill',

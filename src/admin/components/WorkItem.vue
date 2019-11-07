@@ -116,6 +116,7 @@ export default {
     justify-content: center;
     align-items: center;
     padding: 0;
+    background-color: transparent;
     &:hover {
       opacity: 0.7;
     }
